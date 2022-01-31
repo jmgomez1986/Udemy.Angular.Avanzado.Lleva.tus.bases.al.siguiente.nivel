@@ -6,7 +6,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { NotpagefoundComponent } from './pages/notpagefound/notpagefound.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { BreadcumbComponent } from './shared/breadcumb/breadcumb.component';
+import { BreadcrumbsComponent } from './shared/breadcrumbs/breadcrumbs.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { HeaderComponent } from './shared/header/header.component';
 
@@ -17,7 +17,7 @@ import { HeaderComponent } from './shared/header/header.component';
     RegisterComponent,
     NotpagefoundComponent,
     DashboardComponent,
-    BreadcumbComponent,
+    BreadcrumbsComponent,
     SidebarComponent,
     HeaderComponent,
   ],
