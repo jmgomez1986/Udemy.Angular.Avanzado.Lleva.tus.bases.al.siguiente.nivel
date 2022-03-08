@@ -7,6 +7,7 @@ import { PagesRoutingModule } from './pages/pages.routing';
 import { NotpagefoundComponent } from './notpagefound/notpagefound.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: '**', component: NotpagefoundComponent },
 ];
 
