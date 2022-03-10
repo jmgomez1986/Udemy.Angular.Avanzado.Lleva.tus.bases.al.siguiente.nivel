@@ -8,6 +8,7 @@ import { ProgressComponent } from './progress/progress.component';
 import { Grafica1Component } from './grafica1/grafica1.component';
 import { PagesComponent } from './pages.component';
 import { AppRoutingModule } from '../app-routing.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,11 @@ import { AppRoutingModule } from '../app-routing.module';
     Grafica1Component,
     PagesComponent,
   ],
-  imports: [CommonModule, AppRoutingModule, SharedModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    AppRoutingModule,
+    SharedModule
+  ],
 })
 export class PagesModule {}
