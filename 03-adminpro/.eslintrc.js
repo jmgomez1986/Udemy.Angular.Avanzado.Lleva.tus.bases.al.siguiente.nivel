@@ -18,6 +18,7 @@ module.exports = {
     'spaced-comment': 0,
     indent: ['warn', 2],
     '@typescript-eslint/no-empty-function': ['warn'],
+    '@typescript-eslint/no-unused-vars': 'off',
     '@typescript-eslint/no-inferrable-types': [
       'off',
       {
@@ -28,7 +29,7 @@ module.exports = {
     ////////// Possible Errors //////////
     // "comma-dangle": 2, // disallow trailing commas in object literals
     'no-cond-assign': 2, // disallow assignment in conditional expressions
-    'no-console': 0, // disallow use of console (off by default in the node environment)
+    'no-console': 1, // disallow use of console (off by default in the node environment)
     'no-constant-condition': 0, // disallow use of constant expressions in conditions
     'no-control-regex': 0, // disallow control characters in regular expressions
     'no-debugger': 0, // disallow use of debugger
@@ -69,6 +70,7 @@ module.exports = {
     'no-empty-label': 0, // disallow use of labels for anything other then loops and switches
     'no-eq-null': 1, // disallow comparisons to null without a type-checking operator (off by default)
     'no-eval': 2, // disallow use of eval()
+    // 'no-explicit-any': 1,
     'no-extend-native': 0, // disallow adding to native types
     'no-extra-bind': 0, // disallow unnecessary function binding
     'no-fallthrough': 0, // disallow fallthrough of case statements
@@ -132,7 +134,7 @@ module.exports = {
     'comma-spacing': 0, // enforce spacing before and after comma
     'comma-style': [2, 'last'], // enforce one true comma style (off by default)
     'consistent-this': 1, // enforces consistent naming when capturing the current execution context (off by default)
-    'eol-last': 2, // enforce newline at the end of file, with no multiple empty lines
+    'eol-last': 1, // enforce newline at the end of file, with no multiple empty lines
     'func-names': 1, // require function expressions to have a name (off by default)
     'func-style': [1, 'declaration'], // enforces use of function declarations or expressions (off by default)
     'key-spacing': 1, // enforces spacing between keys and values in object literal properties
@@ -161,7 +163,7 @@ module.exports = {
     'space-after-function-name': 0, // require a space after function names (off by default)
     'space-after-keywords': 0, // require a space after certain keywords (off by default)
     'space-before-blocks': 0, // require or disallow space before blocks (off by default)
-    // "space-in-brackets": [1, "never"], // require or disallow spaces inside brackets (off by default)
+    'space-in-brackets': [0, 'allways'], // require or disallow spaces inside brackets (off by default)
     'space-in-parens': 0, // require or disallow spaces inside parentheses (off by default)
     'space-infix-ops': [2, { int32Hint: false }], // require spaces around operators
     'space-return-throw-case': 0, // require a space after return, throw, and case
