@@ -17,6 +17,7 @@ module.exports = {
   rules: {
     'spaced-comment': 0,
     indent: ['warn', 2],
+    '@typescript-eslint/no-empty-function': ['warn'],
     '@typescript-eslint/no-inferrable-types': [
       'off',
       {
@@ -32,8 +33,9 @@ module.exports = {
     'no-control-regex': 0, // disallow control characters in regular expressions
     'no-debugger': 0, // disallow use of debugger
     'no-dupe-keys': 2, // disallow duplicate keys when creating object literals
-    'no-empty': 2, // disallow empty statements
+    'no-empty': 1, // disallow empty statements
     'no-empty-class': 0, // disallow the use of empty character classes in regular expressions
+    'no-empty-function': 0,
     'no-ex-assign': 0, // disallow assigning to the exception in a catch block
     'no-extra-boolean-cast': 0, // disallow double-negation boolean casts in a boolean context
     'no-extra-parens': 0, // disallow unnecessary parentheses (off by default)
@@ -141,7 +143,7 @@ module.exports = {
     'no-inline-comments': 0, // disallow comments inline after code (off by default)
     'no-lonely-if': 0, // disallow if as the only statement in an else block (off by default)
     'no-mixed-spaces-and-tabs': 2, // disallow mixed spaces and tabs for indentation
-    'no-multiple-empty-lines': 2, // disallow multiple empty lines (off by default)
+    'no-multiple-empty-lines': 1, // disallow multiple empty lines (off by default)
     'no-nested-ternary': 0, // disallow nested ternary expressions (off by default)
     'no-new-object': 2, // disallow use of the Object constructor
     'semi-spacing': 2, // disallow space before semicolon
