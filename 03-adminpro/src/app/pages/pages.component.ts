@@ -9,8 +9,6 @@ export class PagesComponent implements OnInit {
   linkTheme = document.querySelector('#theme');
   urlTheme: string = '';
 
-  constructor() {}
-
   ngOnInit(): void {
     this.urlTheme =
       localStorage.getItem('theme') ||
