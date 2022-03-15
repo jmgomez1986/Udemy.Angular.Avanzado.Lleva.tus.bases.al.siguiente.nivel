@@ -9,8 +9,20 @@ import { retry } from 'rxjs/operators';
 })
 export class RxjsComponent implements OnInit {
   constructor() {
-    const obs$ = new Observable((observer) => {
-      let i = -1;
+
+
+    this.retornaObservable().pipe(retry(2)).subscribe({
+      next: (valor) => console.log('Subs: ', valor),
+      error: (err) => console.warn('Error: ', err),
+      complete: () => console.info('Obs terminado'),
+    });
+  }
+
+  ngOnInit(): void {}
+
+  retornaObservable() {
+    let i = -1;
+    return new Observable<number>((observer) => {
       const intervalo = setInterval(() => {
         i++;
         observer.next(i);
@@ -18,21 +30,10 @@ export class RxjsComponent implements OnInit {
           clearInterval(intervalo);
           observer.complete();
         }
-        if ( i === 2 ) {
-          i = -1;
+        if (i === 2) {
           observer.error('i llegó al valor 2');
         }
       }, 1000);
     });
-
-    obs$.pipe(
-      retry(1)
-    ).subscribe(
-      (valor) => console.log('Subs: ', valor),
-      (err) => console.warn('Error: ', err),
-      () => console.info('Obs terminado')
-    );
   }
-
-  ngOnInit(): void {}
 }
