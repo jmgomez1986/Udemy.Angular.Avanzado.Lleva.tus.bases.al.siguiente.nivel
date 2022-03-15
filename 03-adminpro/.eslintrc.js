@@ -19,6 +19,7 @@ module.exports = {
     indent: ['warn', 2],
     '@typescript-eslint/no-empty-function': ['warn'],
     '@typescript-eslint/no-unused-vars': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-inferrable-types': [
       'off',
       {
