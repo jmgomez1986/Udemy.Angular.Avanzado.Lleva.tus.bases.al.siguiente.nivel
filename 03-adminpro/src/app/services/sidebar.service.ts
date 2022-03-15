@@ -21,8 +21,11 @@ export class SidebarService {
           titulo: 'Charts',
           url: 'charts'
         },
+        {
+          titulo: 'Promesas',
+          url: 'promises'
+        },
       ]
     }
   ];
-  constructor() { }
 }

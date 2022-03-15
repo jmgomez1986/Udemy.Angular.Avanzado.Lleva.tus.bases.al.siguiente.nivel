@@ -83,3 +83,19 @@
   - Crear un componente para los ajustes del tema
   - Tips de JavaScript que se pueden usar en TypeScript
   - Preparar el servicio del Sidebar, el cual usaremos más adelante para crear nuestro menú dinámico en base a las respuestas de nuestro backend server
+
+# Seccion 08
+
+  - Tendremos una introducción ilustrativa para explicar estos dos temas
+  - Trabajaremos con promesas y funciones que retornan promesas
+  - Aprenderemos a crear un observable manualmente
+  - Trabajaremos con operadores de los observables como:
+    - Retry
+    - Map
+    - Filter
+    - Next
+  - Funciones que retornan observables
+  - Usaremos el conocimiento aprendido para crear un componente de seguimiento de la página actual
+  - Usaremos observables para leer parámetros de configuración de las rutas que son diferentes a los parámetros de las rutas por url
+  - Cambiaremos los metatags dependiendo de la página donde nos encontremos
+  - Cambiar el titulo de la página actual
