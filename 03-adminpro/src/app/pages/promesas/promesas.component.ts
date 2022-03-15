@@ -6,7 +6,6 @@ import { Component, OnInit } from '@angular/core';
   styles: [],
 })
 export class PromesasComponent implements OnInit {
-  constructor() {}
 
   ngOnInit(): void {
     // const promesa = new Promise((resolve, reject) => {
