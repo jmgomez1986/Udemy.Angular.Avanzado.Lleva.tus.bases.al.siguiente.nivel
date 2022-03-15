@@ -25,6 +25,10 @@ export class SidebarService {
           titulo: 'Promesas',
           url: 'promises'
         },
+        {
+          titulo: 'Observables RxJs',
+          url: 'rxjs'
+        },
       ]
     }
   ];
