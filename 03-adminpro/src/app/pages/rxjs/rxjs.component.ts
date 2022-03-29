@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { interval, Observable } from 'rxjs';
+import { Component, OnDestroy } from '@angular/core';
+import { interval, Observable, Subscription } from 'rxjs';
 import { retry, take, map, filter } from 'rxjs/operators';
 
 @Component({
@@ -7,7 +7,9 @@ import { retry, take, map, filter } from 'rxjs/operators';
   templateUrl: './rxjs.component.html',
   styles: [],
 })
-export class RxjsComponent implements OnInit {
+export class RxjsComponent implements OnDestroy {
+  subsciption: Subscription;
+
   constructor() {
 
     // this.retornaObservable().pipe(retry(2)).subscribe({
@@ -16,14 +18,16 @@ export class RxjsComponent implements OnInit {
     //   complete: () => console.info('Obs terminado'),
     // });
 
-    this.retornaIntervalo().subscribe((valor) => console.log(valor));
+    this.subsciption = this.retornaIntervalo().subscribe((valor) => console.log(valor));
   }
 
-  ngOnInit(): void {}
+  ngOnDestroy(): void {
+    this.subsciption.unsubscribe();
+  }
 
   retornaIntervalo(): Observable<number> {
     return interval(500).pipe(
-      take(10),
+      // take(10),
       map((val) => {
         return val + 1;
       }),
