@@ -99,3 +99,13 @@
   - Usaremos observables para leer parámetros de configuración de las rutas que son diferentes a los parámetros de las rutas por url
   - Cambiaremos los metatags dependiendo de la página donde nos encontremos
   - Cambiar el titulo de la página actual
+
+# Seccion 09
+
+  - Configuración de Mongo
+  - Robo 3T
+  - Conexión entre Mongo y Node
+  - Tip sobre colores de consola
+  - Aprender un poco sobre los errores de respuestas HTTP
+  - Configuración inicial de Express
+  - Establecer las bases de nuestros RESTful services
