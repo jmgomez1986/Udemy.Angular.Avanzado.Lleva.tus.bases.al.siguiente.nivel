@@ -1,4 +1,6 @@
 const express = require('express');
+require('dotenv').config();
+
 const { dbConnection } = require('./database/config')
 
 // Crear el servidor de express
@@ -16,5 +18,5 @@ app.get( '/', (req, res) => {
 } );
 
 app.listen(3000, () => {
-  console.log('Servidor coriendo en el puerto 3000');
+  console.log('Servidor coriendo en el puerto ' + process.env.port);
 })
