@@ -19,5 +19,5 @@ dbConnection();
 app.use('/api/usuarios', require('./routes/usuarios'));
 
 app.listen(3000, () => {
-	console.log('Servidor coriendo en el puerto ' + process.env.port);
+	console.log('Servidor corriendo en el puerto ' + process.env.port);
 });
