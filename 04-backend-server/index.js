@@ -3,24 +3,18 @@ const express = require('express');
 const cors = require('cors');
 const { dbConnection } = require('./database/config');
 
-
 // Crear el servidor de express
 const app = express();
 
 // Configurar CORS
-app.use(cors())
+app.use(cors());
 
 // Base de datos
 dbConnection();
 
 // Rutas
-app.get( '/', (req, res) => {
-  res.json({
-    ok: true,
-    msg: 'Hola Mundo!!!'
-  })
-} );
+app.use('/api/usuarios', require('./routes/usuarios'));
 
 app.listen(3000, () => {
-  console.log('Servidor coriendo en el puerto ' + process.env.port);
-})
+	console.log('Servidor coriendo en el puerto ' + process.env.port);
+});
