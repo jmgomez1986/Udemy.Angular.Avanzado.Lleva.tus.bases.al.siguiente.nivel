@@ -1,4 +1,4 @@
-const { Schema, model } = requie('mongoose');
+const { Schema, model } = require('mongoose');
 
 const UsuarioSchema = Schema({
 	nombre: {
@@ -24,7 +24,7 @@ const UsuarioSchema = Schema({
   },
 	google: {
     type: Boolean,
-		defult: false,
+		default: false,
   },
 });
 
