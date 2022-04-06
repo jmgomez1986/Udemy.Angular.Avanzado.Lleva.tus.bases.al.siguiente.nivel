@@ -11,6 +11,7 @@ const {
 	actualizarUsuario,
   borrarUsuario
 } = require('../controllers/usuarios');
+
 const router = Router();
 
 router.get('/', getUsuarios);
