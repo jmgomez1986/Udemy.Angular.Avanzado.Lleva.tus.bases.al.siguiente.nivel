@@ -14,8 +14,6 @@ const crearHospital = async (req, res = response) => {
   const uid = req.uid;
   const hospital = new Hospital({usuario: uid, ...req.body});
 
-  console.log(uid);
-
   try {
 
     const hospitalDB = await hospital.save();
