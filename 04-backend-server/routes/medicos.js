@@ -15,7 +15,7 @@ const {
 
 const router = Router();
 
-router.get('/', getMedicos);
+router.get('/', validarJWT, getMedicos);
 
 router.post(
 	'/',
