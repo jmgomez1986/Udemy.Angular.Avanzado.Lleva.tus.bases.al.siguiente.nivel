@@ -1,22 +1,11 @@
 const { response } = require('express');
 const { v4: uuidv4 } = require('uuid');
+const { actualizarImagen } = require('../helpers/actualizar-imagen');
 uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
 
-// const Usuario = require('../models/usuario');
-// const Medico = require('../models/medico');
-// const Hospital = require('../models/hospital');
-
 const fileUpLoad = async (req, res = response) => {
-	// const busqueda = req.params.busqueda;
-	// const regexp = new RegExp(busqueda, 'i');
 
-	// const [usuarios, medicos, hospitales] = await Promise.all([
-	// 	Usuario.find({ nombre: regexp }),
-	// 	Medico.find({ nombre: regexp }),
-	// 	Hospital.find({ nombre: regexp }),
-	// ]);
-
-	const tipo = req.params.tipo;
+  const tipo = req.params.tipo;
 	const id = req.params.id;
 	const tiposValidos = ['usuarios', 'hospitales', 'medicos'];
 
@@ -50,10 +39,10 @@ const fileUpLoad = async (req, res = response) => {
 	}
 
 	// Generar el nombre del archivo
-	const nombreArhivo = `${uuidv4()}.${extensionArchivo}`;
+	const nombreArchivo = `${uuidv4()}.${extensionArchivo}`;
 
 	// Path para guardar la imagen
-	const path = `./uploads/${tipo}/${nombreArhivo}`;
+	const path = `./uploads/${tipo}/${nombreArchivo}`;
 
 	// Mover la imagen
 	file.mv(path, function (err) {
@@ -65,13 +54,15 @@ const fileUpLoad = async (req, res = response) => {
 			});
 		}
 
+		// Actualizar la base de datos
+		actualizarImagen(tipo, id, nombreArchivo);
+
 		res.json({
 			ok: true,
 			msg: 'Archivo subido',
-      nombreArhivo
+			nombreArchivo,
 		});
 	});
-
 };
 
 module.exports = {
