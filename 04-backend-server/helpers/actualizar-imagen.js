@@ -3,13 +3,15 @@ const Usuario = require('../models/usuario');
 const Medico = require('../models/medico');
 const Hospital = require('../models/hospital');
 
-const actualizarImagen = async (tipo, id, nombreArchivo) => {
-	// const [usuarios, medicos, hospitales] = await Promise.all([
-	// 	Usuario.find({ nombre: regexp }),
-	// 	Medico.find({ nombre: regexp }),
-	// 	Hospital.find({ nombre: regexp }),
-	// ]);
+const borrarImagen = (tipo, modelo) => {
+  const pathViejo = `./uploads/${tipo}/${modelo.img}`;
+  if (fs.existsSync(pathViejo)) {
+    // Borrar la imagen anterior
+    fs.unlinkSync(pathViejo);
+  }
+}
 
+const actualizarImagen = async (tipo, id, nombreArchivo) => {
 	switch (tipo) {
 		case 'medicos':
 			const medico = await Medico.findById(id);
@@ -17,18 +19,34 @@ const actualizarImagen = async (tipo, id, nombreArchivo) => {
 				return false;
 			}
 
-			const pathViejo = `./uploads/medicos/${medico.img}`;
-			if (fs.existsSync(pathViejo)) {
-				// Borrar la imagen anterior
-				fs.unlinkSync(pathViejo);
-			}
+      borrarImagen(tipo, medico);
+
 			medico.img = nombreArchivo;
 			await medico.save();
       return true;
 
 		case 'hospitales':
-		case 'usuarios':
+      const hospital = await Hospital.findById(id);
+			if (!hospital) {
+				return false;
+			}
 
+      borrarImagen(tipo, hospital);
+
+			hospital.img = nombreArchivo;
+			await hospital.save();
+      return true;
+		case 'usuarios':
+			const usuario = await Usuario.findById(id);
+			if (!usuario) {
+				return false;
+			}
+
+      borrarImagen(tipo, usuario);
+
+			usuario.img = nombreArchivo;
+			await usuario.save();
+      return true;
 		default:
 			return res.status(500).json({
 				ok: false,
