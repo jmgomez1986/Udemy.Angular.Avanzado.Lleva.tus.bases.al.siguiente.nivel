@@ -1,11 +1,12 @@
+const path = require('path');
+const fs = require('fs');
 const { response } = require('express');
 const { v4: uuidv4 } = require('uuid');
 const { actualizarImagen } = require('../helpers/actualizar-imagen');
 uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
 
 const fileUpLoad = async (req, res = response) => {
-
-  const tipo = req.params.tipo;
+	const tipo = req.params.tipo;
 	const id = req.params.id;
 	const tiposValidos = ['usuarios', 'hospitales', 'medicos'];
 
@@ -65,6 +66,29 @@ const fileUpLoad = async (req, res = response) => {
 	});
 };
 
+const returnImage = async (req, res = response) => {
+	const tipo = req.params.tipo;
+	const image = req.params.img;
+	const tiposValidos = ['usuarios', 'hospitales', 'medicos'];
+	let pathImg = path.join(__dirname, `../uploads/${tipo}/${image}`);
+
+	if (!tiposValidos.includes(tipo)) {
+		return res.status(400).json({
+			ok: false,
+			msg: 'El tipo tiene que ser: usuarios - medicos - hospitales',
+		});
+	}
+
+  // Imagen por defecto
+  if (!fs.existsSync(pathImg)) {
+    pathImg = path.join(__dirname, `../uploads/no-img.jpg`);
+  }
+  res.sendFile(pathImg);
+
+
+};
+
 module.exports = {
 	fileUpLoad,
+	returnImage,
 };
