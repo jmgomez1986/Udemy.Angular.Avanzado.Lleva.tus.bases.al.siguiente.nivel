@@ -74,11 +74,32 @@ const actualizarHospital = async (req, res = response) => {
 	}
 };
 
-const borrarHospital = (req, res = response) => {
-	res.json({
-		ok: true,
-		msg: 'borrarHospital',
-	});
+const borrarHospital = async (req, res = response) => {
+	const hospitalId = req.params.id;
+
+	try {
+		const hospitalDB = await Hospital.findById(hospitalId);
+
+		if (!hospitalDB) {
+			return res.status(404).json({
+				ok: false,
+				msg: 'Hospital no encontrado por ese id',
+			});
+		}
+
+		await Hospital.findByIdAndDelete(hospitalId);
+
+		res.json({
+			ok: true,
+			msg: 'Hospital eliminado'
+		});
+	} catch (error) {
+		console.log(error);
+		res.status(500).json({
+			ok: false,
+			msg: 'Error inesperado....',
+		});
+	}
 };
 
 module.exports = {
