@@ -1,4 +1,5 @@
 const { response } = require('express');
+const hospital = require('../models/hospital');
 const Hospital = require('../models/hospital');
 
 const getHospitales = async (req, res = response) => {
@@ -34,11 +35,43 @@ const crearHospital = async (req, res = response) => {
 	}
 };
 
-const actualizarHospital = (req, res = response) => {
-	res.json({
-		ok: true,
-		msg: 'actualizarHospital',
-	});
+const actualizarHospital = async (req, res = response) => {
+	const hospitalId = req.params.id;
+	const usuarioId = req.uid;
+
+	try {
+		const hospitalDB = await Hospital.findById(hospitalId);
+
+		if (!hospitalDB) {
+			return res.status(404).json({
+				ok: false,
+				msg: 'Hospital no encontrado por ese id',
+			});
+		}
+
+		// hospital.nombre = req.body.nombre;
+		const cambiosHospital = { ...req.body, usuario: usuarioId };
+
+		const hospitalActualizado = await Hospital.findByIdAndUpdate(
+			hospitalId,
+			cambiosHospital,
+			{
+				new: true,
+			}
+		);
+
+		res.json({
+			ok: true,
+			msg: 'actualizarHospital',
+			hospital: hospitalActualizado,
+		});
+	} catch (error) {
+		console.log(error);
+		res.status(500).json({
+			ok: false,
+			msg: 'Error inesperado....',
+		});
+	}
 };
 
 const borrarHospital = (req, res = response) => {
