@@ -154,3 +154,12 @@
   - Generar un Token desde el front-end
   - Validar el Token en nuestro back-end
   - Tip para generar la documentación de nuestros servicios automáticamente
+
+  # Seccion 13
+
+    ## En esta sección continuaremos el CRUD faltante de los médicos y hospitales, puntualmente seguiremos con los temas de:
+
+    - Modelos
+    - Grabaciones
+    - Queries
+    - Endpoints faltantes
