@@ -66,7 +66,6 @@ const googleSignIn = async (req, res = reponse) => {
 		} else {
 			usuario = usuarioDB;
 			usuario.google = true;
-			usuario.password = 'temporal';
 		}
 
 		// Guardar en DB
@@ -88,7 +87,20 @@ const googleSignIn = async (req, res = reponse) => {
 	}
 };
 
+const renewToken = async (req, res) => {
+	const uid = req.uid;
+	// Generar el Token (JWT)
+	const token = await generarJWT(uid);
+
+	res.json({
+		ok: true,
+		msg: 'Google Sign-in',
+		token,
+	});
+};
+
 module.exports = {
 	login,
 	googleSignIn,
+	renewToken,
 };
