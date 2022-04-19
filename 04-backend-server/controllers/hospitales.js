@@ -62,7 +62,7 @@ const actualizarHospital = async (req, res = response) => {
 
 		res.json({
 			ok: true,
-			msg: 'actualizarHospital',
+			msg: 'Hospital actualizado',
 			hospital: hospitalActualizado,
 		});
 	} catch (error) {
