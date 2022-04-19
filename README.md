@@ -163,3 +163,13 @@
     - Grabaciones
     - Queries
     - Endpoints faltantes
+
+# Seccion 14
+
+  - Conectar el Front-end con el Back-end (login)
+  - Usar Sweet Alert para mostrar mensajes
+  - Login normal de usuario
+  - Login de Google
+  - LocalStorage para almacenar tokens
+  - Protección básica de rutas
+  - Logout
