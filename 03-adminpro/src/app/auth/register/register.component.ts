@@ -5,6 +5,8 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
+import Swal from 'sweetalert2';
+
 import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
@@ -41,7 +43,9 @@ export class RegisterComponent {
         console.log('Usuario creado');
         console.log('Response: ', resp);
       },
-      error: (err) => console.warn(err.error.msg),
+      error: (err) => {
+        Swal.fire('Error!', err.error.msg, 'error');
+      },
     });
   }
 
