@@ -33,4 +33,12 @@ export class UsuarioService {
       })
     );
   }
+
+  loginGoogle(token: string): Observable<any> {
+    return this.http.post<any>(`${baseUrl}/login/google`, {token}).pipe(
+      tap((resp) => {
+        localStorage.setItem('token', resp.token);
+      })
+    );
+  }
 }
