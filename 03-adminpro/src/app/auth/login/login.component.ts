@@ -12,7 +12,7 @@ import { UsuarioService } from '../../services/usuario.service';
 })
 export class LoginComponent {
   public loginForm = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
+    email: [localStorage.getItem('email') || '', [Validators.required, Validators.email]],
     password: ['', Validators.required],
     remember: [false],
   });
@@ -28,6 +28,11 @@ export class LoginComponent {
     this.usuarioService.login(this.loginForm.value).subscribe({
       next: (resp) => {
         console.log('Response: ', resp);
+        if ( this.loginForm.get('remember')?.value) {
+          localStorage.setItem('email', this.loginForm.get('email')?.value);
+        } else {
+          localStorage.removeItem('email');
+        }
         // this.router.navigateByUrl('/');
       },
       error: (err) => {
