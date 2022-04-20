@@ -32,7 +32,6 @@ export class RegisterComponent {
 
   crearUsuario() {
     this.formSubmitted = true;
-    console.log('Formulario: ', this.registerForm.value);
 
     if (this.registerForm.invalid) {
       return;
@@ -40,7 +39,6 @@ export class RegisterComponent {
 
     this.usuarioService.crearUsuario(this.registerForm.value).subscribe({
       next: (resp) => {
-        console.log('Usuario creado');
         console.log('Response: ', resp);
       },
       error: (err) => {

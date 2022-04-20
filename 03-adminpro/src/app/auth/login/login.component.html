@@ -10,20 +10,21 @@
       <form
         class="form-horizontal form-material"
         id="loginform"
-        (submit)="login()">
+        autocomplete="off"
+        [formGroup]="loginForm"
+        (ngSubmit)="login()">
         <a href="javascript:void(0)" class="text-center db">
           <img src="./assets/images/logo-icon.png" alt="Home" />
           <br />
-          <img src="./assets/images/logo-text.png"/>
+          <img src="./assets/images/logo-text.png" alt="Home"/>
         </a>
         <div class="form-group m-t-40">
           <div class="col-xs-12">
             <input
               class="form-control"
               type="text"
-              required=""
               placeholder="Username"
-            />
+              formControlName="email"/>
           </div>
         </div>
         <div class="form-group">
@@ -31,8 +32,8 @@
             <input
               class="form-control"
               type="password"
-              required=""
-              placeholder="Password"/>
+              placeholder="Password"
+              formControlName="password"/>
           </div>
         </div>
         <div class="form-group row">
@@ -41,14 +42,15 @@
               <input
                 id="checkbox-signup"
                 type="checkbox"
-                class="filled-in chk-col-light-blue"/>
+                class="filled-in chk-col-light-blue"
+                formControlName="remember"/>
               <label for="checkbox-signup"> Remember me </label>
             </div>
             <a
               href="javascript:void(0)"
               id="to-recover"
               class="text-dark pull-right">
-              <i class="fa fa-lock m-r-5"></i> Forgot pwd?
+              <em class="fa fa-lock m-r-5"></em> Forgot pwd?
             </a>
           </div>
         </div>
@@ -87,7 +89,7 @@
             <a
               routerLink="/register"
               class="text-primary m-l-5">
-              <b>Sign Up</b>
+              <strong>Sign Up</strong>
             </a>
           </div>
         </div>
