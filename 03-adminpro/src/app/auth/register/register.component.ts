@@ -1,18 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
-  FormGroup,
   ValidationErrors,
   Validators,
 } from '@angular/forms';
+import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['register.component.css'],
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
   public formSubmitted = false;
 
   public registerForm = this.fb.group({
@@ -23,19 +23,26 @@ export class RegisterComponent implements OnInit {
     terminos: [false, Validators.requiredTrue],
   });
 
-  constructor(private fb: FormBuilder) {}
-
-  ngOnInit(): void {}
+  constructor(
+    private fb: FormBuilder,
+    private usuarioService: UsuarioService
+  ) {}
 
   crearUsuario() {
     this.formSubmitted = true;
-    console.log('Formulario: ', this.registerForm);
+    console.log('Formulario: ', this.registerForm.value);
 
-    if (this.registerForm.valid) {
-      console.log('Posteando formulario');
-    } else {
-      console.log('El Formulario no es correcto...');
+    if (this.registerForm.invalid) {
+      return;
     }
+
+    this.usuarioService.crearUsuario(this.registerForm.value).subscribe({
+      next: (resp) => {
+        console.log('Usuario creado');
+        console.log('Response: ', resp);
+      },
+      error: (err) => console.warn(err.error.msg),
+    });
   }
 
   campoNoValido(campo: string): boolean {
