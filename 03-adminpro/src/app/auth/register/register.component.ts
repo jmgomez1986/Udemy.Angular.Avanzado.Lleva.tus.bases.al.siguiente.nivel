@@ -8,6 +8,7 @@ import {
 import Swal from 'sweetalert2';
 
 import { UsuarioService } from '../../services/usuario.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -26,6 +27,7 @@ export class RegisterComponent {
   });
 
   constructor(
+    private router: Router,
     private fb: FormBuilder,
     private usuarioService: UsuarioService
   ) {}
@@ -40,6 +42,7 @@ export class RegisterComponent {
     this.usuarioService.crearUsuario(this.registerForm.value).subscribe({
       next: (resp) => {
         console.log('Response: ', resp);
+        this.router.navigateByUrl('/');
       },
       error: (err) => {
         Swal.fire('Error!', err.error.msg, 'error');
