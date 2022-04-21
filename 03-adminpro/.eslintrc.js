@@ -50,7 +50,7 @@ module.exports = {
     'no-obj-calls': 0, // disallow the use of object properties of the global object (Math and JSON) as functions
     'no-regex-spaces': 2, // disallow multiple spaces in a regular expression literal
     'no-sparse-arrays': 0, // disallow sparse arrays
-    'no-unreachable': 2, // disallow unreachable statements after a return, throw, continue, or break statement
+    'no-unreachable': 0, // disallow unreachable statements after a return, throw, continue, or break statement
     'use-isnan': 0, // disallow comparisons with the value NaN
     'valid-jsdoc': 1, // Ensure JSDoc comments are valid (off by default)
     'valid-typeof': 2, // Ensure that the results of typeof are compared against a valid string
