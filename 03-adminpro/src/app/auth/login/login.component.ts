@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -26,7 +26,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router,
     private fb: FormBuilder,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private ngZone: NgZone
   ) {}
 
   ngOnInit(): void {
@@ -83,9 +84,10 @@ export class LoginComponent implements OnInit {
         const token = googleUser.getAuthResponse().id_token;
 
         this.usuarioService.loginGoogle(token).subscribe(() => {
-          this.router.navigateByUrl('/');
+          this.ngZone.run(() => {
+            this.router.navigateByUrl('/');
+          });
         });
-
       },
       (error) => {
         alert(JSON.stringify(error));

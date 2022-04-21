@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { tap, map, catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
@@ -8,14 +8,36 @@ import { LoginForm } from '../interfaces/login-form.interface';
 import { RegisterResponse } from '../interfaces/register-response.interfaces';
 import { LoginResponse } from '../interfaces/login-response.interfaces';
 import { RenewTokenResponse } from '../interfaces/validate-token-response.interfaces';
+import { Router } from '@angular/router';
 
 const baseUrl = environment.baseUrl;
+
+declare const gapi: any;
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsuarioService {
-  constructor(private http: HttpClient) {}
+  public auth2: any;
+
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private ngZone: NgZone
+  ) {
+    this.googleInit();
+  }
+
+  googleInit() {
+    gapi.load('auth2', () => {
+      // Retrieve the singleton for the GoogleAuth library and set up the client.
+      this.auth2 = gapi.auth2.init({
+        clientId:
+          '80746467600-dm1vkbgftkp1655i96ur49gftv5rl3n5.apps.googleusercontent.com',
+        cookiepolicy: 'single_host_origin',
+      });
+    });
+  }
 
   valiarToken(): Observable<boolean> {
     const token = localStorage.getItem('token') || '';
@@ -57,5 +79,18 @@ export class UsuarioService {
         localStorage.setItem('token', resp.token);
       })
     );
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+
+    this.ngZone.run(() => {
+      this.router.navigateByUrl('/login');
+    });
+
+    gapi.auth2.getAuthInstance();
+    this.auth2.signOut().then(() => {
+      this.router.navigateByUrl('/login');
+    });
   }
 }
