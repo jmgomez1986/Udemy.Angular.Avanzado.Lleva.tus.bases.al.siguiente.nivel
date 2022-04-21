@@ -173,3 +173,12 @@
   - LocalStorage para almacenar tokens
   - Protección básica de rutas
   - Logout
+
+# Seccion 15
+
+  - Módulo de pipes 
+  - Pipe para controlar la imagen a desplegar
+  - Subida de imagen desde el Front-end hasta el Back-end
+  - Crear el componente del perfil del usuario
+  - Notificar actualización de imagen
+  - Vista previa de la imagen seleccionada en tiempo real (sin subirla al backend)
