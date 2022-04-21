@@ -1,11 +1,11 @@
 export class Usuario {
-  construcor(
-    nombre: string,
-    email: string,
-    password?: string,
-    img?: string,
-    google?: string,
-    role?: string,
-    uid?: string
+  constructor(
+    public nombre: string,
+    public email: string,
+    public password?: string,
+    public img?: string,
+    public google?: string,
+    public role?: string,
+    public uid?: string
   ) { }
 }

@@ -9,6 +9,7 @@ import { RegisterResponse } from '../interfaces/register-response.interfaces';
 import { LoginResponse } from '../interfaces/login-response.interfaces';
 import { RenewTokenResponse } from '../interfaces/validate-token-response.interfaces';
 import { Router } from '@angular/router';
+import { Usuario } from '../models/usuario.model';
 
 const baseUrl = environment.baseUrl;
 
@@ -19,6 +20,7 @@ declare const gapi: any;
 })
 export class UsuarioService {
   public auth2: any;
+  public usuario: Usuario;
 
   constructor(
     private http: HttpClient,
@@ -42,7 +44,7 @@ export class UsuarioService {
     });
   }
 
-  valiarToken(): Observable<boolean> {
+  validarToken(): Observable<boolean> {
     const token = localStorage.getItem('token') || '';
 
     return this.http
@@ -51,6 +53,10 @@ export class UsuarioService {
       })
       .pipe(
         tap((resp: RenewTokenResponse) => {
+          console.log('Respuesta validar token: ', resp);
+          const { email, google, nombre, role, img, uid } = resp.usuario;
+          this.usuario = new Usuario(nombre, email, '', img, google, role, uid);
+          console.log('Usuario: ', this.usuario);
           localStorage.setItem('token', resp.token);
         }),
         map(() => true),
