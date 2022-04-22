@@ -53,10 +53,8 @@ export class UsuarioService {
       })
       .pipe(
         tap((resp: RenewTokenResponse) => {
-          console.log('Respuesta validar token: ', resp);
           const { email, google, nombre, role, img, uid } = resp.usuario;
           this.usuario = new Usuario(nombre, email, '', img, google, role, uid);
-          console.log('Usuario: ', this.usuario);
           localStorage.setItem('token', resp.token);
         }),
         map(() => true),

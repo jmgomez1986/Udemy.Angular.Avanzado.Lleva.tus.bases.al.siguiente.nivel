@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
+  Router,
   RouterStateSnapshot,
 } from '@angular/router';
 import { UsuarioService } from '../services/usuario.service';
-import { Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
 
 @Injectable({
