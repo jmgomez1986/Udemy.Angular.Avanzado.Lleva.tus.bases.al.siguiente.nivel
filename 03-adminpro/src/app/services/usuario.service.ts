@@ -10,6 +10,7 @@ import { LoginResponse } from '../interfaces/login-response.interfaces';
 import { RenewTokenResponse } from '../interfaces/validate-token-response.interfaces';
 import { Router } from '@angular/router';
 import { Usuario } from '../models/usuario.model';
+import { UpdateProfileResponse } from '../interfaces/update-profile-response.interfaces';
 
 const baseUrl = environment.baseUrl;
 
@@ -78,9 +79,9 @@ export class UsuarioService {
       );
   }
 
-  actualizarPerfil(data: { email: string; nombre: string, role: string }): Observable<any> {
+  actualizarPerfil(data: { email: string; nombre: string, role: string }): Observable<UpdateProfileResponse> {
     data = {...data, role: this.usuario.role};
-    return this.http.put(`${baseUrl}/usuarios/${this.uid}`, data, {
+    return this.http.put<UpdateProfileResponse>(`${baseUrl}/usuarios/${this.uid}`, data, {
       headers: { 'x-token': this.token },
     });
   }

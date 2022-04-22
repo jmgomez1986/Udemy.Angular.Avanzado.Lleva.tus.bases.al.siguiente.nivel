@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { UsuarioService } from './../../services/usuario.service';
+import { Usuario } from './../../models/usuario.model';
 
 @Component({
   selector: 'app-perfil',
@@ -8,13 +9,16 @@ import { UsuarioService } from './../../services/usuario.service';
   styles: [],
 })
 export class PerfilComponent implements OnInit {
+  public usuario: Usuario;
   public profileForm: FormGroup;
-  constructor(private fb: FormBuilder, private usuarioService: UsuarioService) {}
+  constructor(private fb: FormBuilder, private usuarioService: UsuarioService) {
+    this.usuario = usuarioService.usuario; // Se esta asignando una referencia
+  }
 
   ngOnInit(): void {
     this.profileForm = this.fb.group({
-      nombre: ['abc', Validators.required],
-      email: ['a@a.com', [Validators.required, Validators.email]],
+      nombre: [this.usuario.nombre, Validators.required],
+      email: [this.usuario.email, [Validators.required, Validators.email]],
     });
   }
 
@@ -22,6 +26,9 @@ export class PerfilComponent implements OnInit {
     console.log(this.profileForm.value);
     this.usuarioService.actualizarPerfil(this.profileForm.value).subscribe(resp => {
       console.log('Respuesta: ', resp);
+      const {nombre, email} = resp.usuarioActualizado;
+      this.usuario.nombre = nombre;
+      this.usuario.email = email;
     });
   }
 }
