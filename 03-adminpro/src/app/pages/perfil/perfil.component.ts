@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { UsuarioService } from './../../services/usuario.service';
 import { Usuario } from './../../models/usuario.model';
+import { FileUploadService } from './../../services/file-upload.service';
 
 @Component({
   selector: 'app-perfil',
@@ -11,7 +12,13 @@ import { Usuario } from './../../models/usuario.model';
 export class PerfilComponent implements OnInit {
   public usuario: Usuario;
   public profileForm: FormGroup;
-  constructor(private fb: FormBuilder, private usuarioService: UsuarioService) {
+  public imagenSubir: File;
+
+  constructor(
+    private fb: FormBuilder,
+    private usuarioService: UsuarioService,
+    private fileUploadService: FileUploadService
+  ) {
     this.usuario = usuarioService.usuario; // Se esta asignando una referencia
   }
 
@@ -23,12 +30,27 @@ export class PerfilComponent implements OnInit {
   }
 
   actualizarPerfil() {
-    console.log(this.profileForm.value);
-    this.usuarioService.actualizarPerfil(this.profileForm.value).subscribe(resp => {
+    this.usuarioService
+      .actualizarPerfil(this.profileForm.value)
+      .subscribe((resp) => {
+        const { nombre, email } = resp.usuarioActualizado;
+        this.usuario.nombre = nombre;
+        this.usuario.email = email;
+      });
+  }
+
+  cambiarImagen($event: any) {
+    const file: File = $event.target?.files[0];
+    this.imagenSubir = file;
+  }
+
+  subirImagen() {
+    this.fileUploadService.acualizarImagen(
+      this.imagenSubir,
+      'usuarios',
+      this.usuario.uid
+    ).then(resp => {
       console.log('Respuesta: ', resp);
-      const {nombre, email} = resp.usuarioActualizado;
-      this.usuario.nombre = nombre;
-      this.usuario.email = email;
     });
   }
 }

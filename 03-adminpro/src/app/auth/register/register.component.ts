@@ -41,7 +41,6 @@ export class RegisterComponent {
 
     this.usuarioService.crearUsuario(this.registerForm.value).subscribe({
       next: (resp) => {
-        console.log('Response: ', resp);
         this.router.navigateByUrl('/');
       },
       error: (err) => {
