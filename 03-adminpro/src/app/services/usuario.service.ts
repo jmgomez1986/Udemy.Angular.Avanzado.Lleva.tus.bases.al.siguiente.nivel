@@ -52,12 +52,12 @@ export class UsuarioService {
         headers: { 'x-token': token },
       })
       .pipe(
-        tap((resp: RenewTokenResponse) => {
-          const { email, google, nombre, role, img, uid } = resp.usuario;
+        map((resp: RenewTokenResponse) => {
+          const { email, google, nombre, role, img = '', uid } = resp.usuario;
           this.usuario = new Usuario(nombre, email, '', img, google, role, uid);
           localStorage.setItem('token', resp.token);
+          return true;
         }),
-        map(() => true),
         catchError(() => of(false))
       );
   }

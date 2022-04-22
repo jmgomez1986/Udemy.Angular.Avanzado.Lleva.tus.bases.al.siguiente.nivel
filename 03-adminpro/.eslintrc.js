@@ -81,7 +81,7 @@ module.exports = {
     'no-labels': 0, // disallow use of labeled statements
     'no-lone-blocks': 1, // disallow unnecessary nested blocks
     'no-loop-func': 2, // disallow creation of functions within loops
-    'no-multi-spaces': 2, // disallow use of multiple spaces
+    'no-multi-spaces': 1, // disallow use of multiple spaces
     'no-multi-str': 0, // disallow use of multiline strings
     'no-native-reassign': 1, // disallow reassignments of native objects
     'no-new': 1, // disallow use of new operator when not part of the assignment or comparison
