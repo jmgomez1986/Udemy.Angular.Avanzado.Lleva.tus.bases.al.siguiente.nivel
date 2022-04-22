@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from './../../environments/environment';
+import { UploadImage } from './../interfaces/upload-image.interface';
 
 const BASEURL = environment.baseUrl;
 
@@ -7,12 +8,11 @@ const BASEURL = environment.baseUrl;
   providedIn: 'root',
 })
 export class FileUploadService {
-
   async acualizarImagen(
     archivo: File,
     tipo: 'usuarios' | 'medicos' | 'hospitales',
     id: string
-  ) {
+  ): Promise<string | boolean> {
     try {
       const url = `${BASEURL}/upload/${tipo}/${id}`;
       const formData = new FormData();
@@ -27,8 +27,8 @@ export class FileUploadService {
         body: formData,
       });
 
-      const data = await resp.json();
-      return data;
+      const data: UploadImage = await resp.json();
+      return data.ok ? data.nombreArchivo : false;
     } catch (error) {
       console.log(error);
       return false;
