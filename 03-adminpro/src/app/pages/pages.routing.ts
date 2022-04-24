@@ -10,6 +10,10 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { PerfilComponent } from './perfil/perfil.component';
+// Mantenimientos
+import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
+import { MedicosComponent } from './mantenimientos/medicos/medicos.component';
+import { HospitalesComponent } from './mantenimientos/hospitales/hospitales.component';
 
 const routes: Routes = [
   {
@@ -43,6 +47,22 @@ const routes: Routes = [
         path: 'profile',
         component: PerfilComponent,
         data: { title: 'Profile' },
+      },
+      // Mantenimientos
+      {
+        path: 'usuarios',
+        component: UsuariosComponent,
+        data: { title: 'Usuarios de aplicacion' },
+      },
+      {
+        path: 'medicos',
+        component: MedicosComponent,
+        data: { title: 'Madicos' },
+      },
+      {
+        path: 'hospitales',
+        component: HospitalesComponent,
+        data: { title: 'Hospitales' },
       },
     ],
   },
