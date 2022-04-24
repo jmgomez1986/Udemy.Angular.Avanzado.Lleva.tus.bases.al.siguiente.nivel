@@ -3,6 +3,7 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { UsuarioService } from './../../services/usuario.service';
 import { Usuario } from './../../models/usuario.model';
 import { FileUploadService } from './../../services/file-upload.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-perfil',
@@ -31,13 +32,17 @@ export class PerfilComponent implements OnInit {
   }
 
   actualizarPerfil() {
-    this.usuarioService
-      .actualizarPerfil(this.profileForm.value)
-      .subscribe((resp) => {
+    this.usuarioService.actualizarPerfil(this.profileForm.value).subscribe({
+      next: (resp) => {
         const { nombre, email } = resp.usuarioActualizado;
         this.usuario.nombre = nombre;
         this.usuario.email = email;
-      });
+        Swal.fire('Guardado', 'Los cambios se guardaron con exito.', 'success');
+      },
+      error: (err) => {
+        Swal.fire('Error!', err.error.msg, 'error');
+      },
+    });
   }
 
   cambiarImagen($event: any) {
@@ -45,11 +50,11 @@ export class PerfilComponent implements OnInit {
     this.imagenSubir = file;
 
     if (!file) {
-      return this.imgTemp = null;
+      return (this.imgTemp = null);
     }
 
     const reader = new FileReader();
-    reader.readAsDataURL( file );
+    reader.readAsDataURL(file);
 
     reader.onloadend = () => {
       this.imgTemp = reader.result;
@@ -60,8 +65,11 @@ export class PerfilComponent implements OnInit {
     this.fileUploadService
       .acualizarImagen(this.imagenSubir, 'usuarios', this.usuario.uid)
       .then((img) => {
-        console.log('Respuesta: ', img);
         this.usuario.img = typeof img === 'string' ? img : '';
+        Swal.fire('Guardado', 'La imágen s actualizó con exito.', 'success');
+      })
+      .catch(() => {
+        Swal.fire('Error!', 'No se pudo actualizar la imágen', 'error');
       });
   }
 }
