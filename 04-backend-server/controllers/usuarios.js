@@ -88,9 +88,9 @@ const actualizarUsuario = async (req, res = response) => {
 	try {
 		// TODO: validar token y comprobar si es el usuario correcto
 
-		const existeUserDB = await Usuario.findById(uid);
+		const userDB = await Usuario.findById(uid);
 
-		if (!existeUserDB) {
+		if (!userDB) {
 			return res.status(404).json({
 				ok: false,
 				msg: 'No existe un usuario con el id ingresado',
@@ -100,7 +100,7 @@ const actualizarUsuario = async (req, res = response) => {
 		// Actualizaciones
 		const { password, google, email, ...campos } = req.body;
 
-		if (existeUserDB.email !== email) {
+		if (userDB.email !== email) {
 			const existeEmail = await Usuario.findOne({ email });
 
 			if (existeEmail) {
@@ -111,7 +111,14 @@ const actualizarUsuario = async (req, res = response) => {
 			}
 		}
 
-		campos.email = email;
+    if (!userDB.google) {
+      campos.email = email;
+    } else if (userDB.email != email) {
+      return res.status(400).json({
+        ok: false,
+        msg: 'Los usuarios de Gogle no pueden cambiar su correo',
+      });
+    }
 
 		const usuarioActualizado = await Usuario.findByIdAndUpdate(uid, campos, {
 			new: true,
