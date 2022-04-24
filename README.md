@@ -157,12 +157,12 @@
 
   # Seccion 13
 
-    ## En esta sección continuaremos el CRUD faltante de los médicos y hospitales, puntualmente seguiremos con los temas de:
+  En esta sección continuaremos el CRUD faltante de los médicos y hospitales, puntualmente seguiremos con los temas de:
 
-    - Modelos
-    - Grabaciones
-    - Queries
-    - Endpoints faltantes
+  - Modelos
+  - Grabaciones
+  - Queries
+  - Endpoints faltantes
 
 # Seccion 14
 
@@ -182,3 +182,14 @@
   - Crear el componente del perfil del usuario
   - Notificar actualización de imagen
   - Vista previa de la imagen seleccionada en tiempo real (sin subirla al backend)
+
+# Seccion 16
+
+  Esta sección tiene 2 objetivos generales, el primero es crear un mantenimiento de usuarios completo y el segundo, es crear un componente re utilizable que nos permita subir fácilmente imágenes de Hospitales, Usuarios y Médicos.
+
+  - Crear componente de usuarios
+  - Búsqueda de usuarios
+  - Borrar usuario
+  - Actualizar Rol del usuario
+  - Crear un modal para la subida de la imagen
+  - Emitir notificaciones de cambio en imagenes
