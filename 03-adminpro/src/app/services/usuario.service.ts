@@ -141,8 +141,15 @@ export class UsuarioService {
               user.uid
             )
         );
-        return {...resp, usuarios};
+        return { ...resp, usuarios };
       })
+    );
+  }
+
+  eliminarUsuario(usuario: Usuario) {
+    return this.http.delete<any>(
+      `${BASE_URL}/usuarios/${usuario.uid}`,
+      this.headers
     );
   }
 }
