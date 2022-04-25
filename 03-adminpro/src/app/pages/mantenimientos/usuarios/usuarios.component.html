@@ -38,17 +38,19 @@
           <table class="table table-bordered" aria-label="tablaUsuarios">
             <thead>
               <tr>
-                <th>Avatar</th>
+                <th class="w100">Avatar</th>
                 <th>Correo</th>
                 <th>Nombre</th>
-                <th>Rol</th>
-                <th>Auth</th>
-                <th class="text-nowrap">Actiones</th>
+                <th class="w100">Rol</th>
+                <th class="w100">Auth</th>
+                <th class="w100 text-nowrap">Actiones</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let usuario of usuarios">
-                <td>Lunar probe project</td>
+                <td class="text-center">
+                  <img [src]="usuario.imagenUrl" alt="Avatar del usuario" class="avatar">
+                </td>
                 <td>{{usuario.email}}</td>
                 <td>{{usuario.nombre}}</td>
                 <td>{{usuario.role}}</td>

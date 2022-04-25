@@ -25,6 +25,7 @@ export class UsuariosComponent implements OnInit {
       .subscribe(({ totalReg, usuarios }) => {
         this.totalUsuarios = totalReg;
         this.usuarios = usuarios;
+        console.log('Usuarios: ', usuarios);
       });
   }
 

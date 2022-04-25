@@ -1,14 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, NgZone } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { Observable, of } from 'rxjs';
 import { tap, map, catchError } from 'rxjs/operators';
+
 import { environment } from '../../environments/environment';
 import { RegisterForm } from '../interfaces/registrar-form.interface';
 import { LoginForm } from '../interfaces/login-form.interface';
 import { RegisterResponse } from '../interfaces/register-response.interfaces';
 import { LoginResponse } from '../interfaces/login-response.interfaces';
 import { RenewTokenResponse } from '../interfaces/validate-token-response.interfaces';
-import { Router } from '@angular/router';
 import { Usuario } from '../models/usuario.model';
 import { UpdateProfileResponse } from '../interfaces/update-profile-response.interfaces';
 import { CargarUsuariosResponse } from '../interfaces/cargar-usuarios-response.interface';
@@ -125,6 +127,22 @@ export class UsuarioService {
 
   cargarUsuarios(desde = 0, limite = 5) {
     const url = `${baseUrl}/usuarios?desde=${desde}&limite=${limite}`;
-    return this.http.get<CargarUsuariosResponse>(url, this.headers);
+    return this.http.get<CargarUsuariosResponse>(url, this.headers).pipe(
+      map((resp) => {
+        const usuarios = resp.usuarios.map(
+          (user) =>
+            new Usuario(
+              user.nombre,
+              user.email,
+              user.password,
+              user.img,
+              user.google,
+              user.role,
+              user.uid
+            )
+        );
+        return {...resp, usuarios};
+      })
+    );
   }
 }
