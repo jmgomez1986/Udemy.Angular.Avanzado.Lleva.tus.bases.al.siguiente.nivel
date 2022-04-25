@@ -65,24 +65,28 @@ export class UsuariosComponent implements OnInit {
   }
 
   eliminarUsuario(usuario: Usuario) {
-    Swal.fire({
-      title: '¿Borrar usuario?',
-      text: `Está a punto de borrar a ${usuario.nombre}`,
-      icon: 'question',
-      showCancelButton: true,
-      confirmButtonText: 'Si, borrar',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.usuarioService.eliminarUsuario(usuario).subscribe(() => {
-          Swal.fire(
-            'Usuario borrado!',
-            `El usuario ${usuario.nombre} se borró correctamente`,
-            'success'
-          );
-
-          this.cargarUsuarios();
-        });
-      }
-    });
+    if (usuario.uid === this.usuarioService.usuario.uid) {
+      Swal.fire('Error!', 'No puede borrarse a si mismo', 'error');
+    } else {
+      Swal.fire({
+        title: '¿Borrar usuario?',
+        text: `Está a punto de borrar a ${usuario.nombre}`,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Si, borrar',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.usuarioService.eliminarUsuario(usuario).subscribe(() => {
+            Swal.fire(
+              'Usuario borrado!',
+              `El usuario ${usuario.nombre} se borró correctamente`,
+              'success'
+            );
+            this.desde = 0;
+            this.cargarUsuarios();
+          });
+        }
+      });
+    }
   }
 }
