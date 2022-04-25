@@ -16,7 +16,7 @@ module.exports = {
   plugins: ['@typescript-eslint'],
   rules: {
     'spaced-comment': 0,
-    indent: ['warn', 2],
+    indent: ['warn', 2, { SwitchCase: 1 }],
     '@typescript-eslint/no-empty-function': ['warn'],
     '@typescript-eslint/no-unused-vars': 'off',
     '@typescript-eslint/no-explicit-any': 'off',

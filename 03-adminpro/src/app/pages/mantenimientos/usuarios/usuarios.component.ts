@@ -11,6 +11,7 @@ import { Usuario } from './../../../models/usuario.model';
 export class UsuariosComponent implements OnInit {
   public totalUsuarios: number = 0;
   public usuarios: Usuario[] = [];
+  public usuarioTemp: Usuario[] = [];
   public desde: number = 0;
   public limite: number = 5;
   public cargando: boolean = true;
@@ -31,6 +32,7 @@ export class UsuariosComponent implements OnInit {
       .subscribe(({ totalReg, usuarios }) => {
         this.totalUsuarios = totalReg;
         this.usuarios = usuarios;
+        this.usuarioTemp = usuarios;
         this.cargando = false;
       });
   }
@@ -48,10 +50,16 @@ export class UsuariosComponent implements OnInit {
   }
 
   buscar(termino: string) {
+    if (termino.length === 0) {
+      this.usuarios = this.usuarioTemp;
+      return;
+    }
     this.cargando = true;
-    this.busquedasService.buscar('usuarios', termino).subscribe((resultados) => {
-      this.usuarios = resultados;
-      this.cargando = false;
-    });
+    this.busquedasService
+      .buscar('usuarios', termino)
+      .subscribe((resultados) => {
+        this.usuarios = resultados;
+        this.cargando = false;
+      });
   }
 }
