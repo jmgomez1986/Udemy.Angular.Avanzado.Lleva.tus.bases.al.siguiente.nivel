@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from './../../environments/environment';
 import { UploadImage } from './../interfaces/upload-image.interface';
 
-const BASEURL = environment.baseUrl;
+const BASE_URL = environment.baseUrl;
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +14,7 @@ export class FileUploadService {
     id: string
   ): Promise<string | boolean> {
     try {
-      const url = `${BASEURL}/upload/${tipo}/${id}`;
+      const url = `${BASE_URL}/upload/${tipo}/${id}`;
       const formData = new FormData();
 
       formData.append('imagen', archivo);

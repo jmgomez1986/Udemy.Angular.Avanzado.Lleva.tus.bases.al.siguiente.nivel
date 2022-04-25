@@ -16,7 +16,7 @@ import { UpdateProfileResponse } from '../interfaces/update-profile-response.int
 import { CargarUsuariosResponse } from '../interfaces/cargar-usuarios-response.interface';
 import { HeadersHttp } from '../interfaces/headers.interface';
 
-const baseUrl = environment.baseUrl;
+const BASE_URL = environment.baseUrl;
 
 declare const gapi: any;
 
@@ -64,7 +64,7 @@ export class UsuarioService {
   }
 
   validarToken(): Observable<boolean> {
-    return this.http.get<any>(`${baseUrl}/login/renew`, this.headers).pipe(
+    return this.http.get<any>(`${BASE_URL}/login/renew`, this.headers).pipe(
       map((resp: RenewTokenResponse) => {
         const { email, google, nombre, role, img = '', uid } = resp.usuario;
         this.usuario = new Usuario(nombre, email, '', img, google, role, uid);
@@ -77,7 +77,7 @@ export class UsuarioService {
 
   crearUsuario(formData: RegisterForm): Observable<RegisterResponse> {
     return this.http
-      .post<RegisterResponse>(`${baseUrl}/usuarios`, formData)
+      .post<RegisterResponse>(`${BASE_URL}/usuarios`, formData)
       .pipe(
         tap((resp) => {
           localStorage.setItem('token', resp.token);
@@ -92,14 +92,14 @@ export class UsuarioService {
   }): Observable<UpdateProfileResponse> {
     data = { ...data, role: this.usuario.role };
     return this.http.put<UpdateProfileResponse>(
-      `${baseUrl}/usuarios/${this.uid}`,
+      `${BASE_URL}/usuarios/${this.uid}`,
       data,
       this.headers
     );
   }
 
   login(formData: LoginForm): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${baseUrl}/login`, formData).pipe(
+    return this.http.post<LoginResponse>(`${BASE_URL}/login`, formData).pipe(
       tap((resp) => {
         localStorage.setItem('token', resp.token);
       })
@@ -107,7 +107,7 @@ export class UsuarioService {
   }
 
   loginGoogle(token: string): Observable<any> {
-    return this.http.post<any>(`${baseUrl}/login/google`, { token }).pipe(
+    return this.http.post<any>(`${BASE_URL}/login/google`, { token }).pipe(
       tap((resp) => {
         localStorage.setItem('token', resp.token);
       })
@@ -126,7 +126,7 @@ export class UsuarioService {
   }
 
   cargarUsuarios(desde = 0, limite = 5) {
-    const url = `${baseUrl}/usuarios?desde=${desde}&limite=${limite}`;
+    const url = `${BASE_URL}/usuarios?desde=${desde}&limite=${limite}`;
     return this.http.get<CargarUsuariosResponse>(url, this.headers).pipe(
       map((resp) => {
         const usuarios = resp.usuarios.map(

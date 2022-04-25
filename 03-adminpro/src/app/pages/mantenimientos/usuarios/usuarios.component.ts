@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BusquedasService } from 'src/app/services/busquedas.service';
 import { UsuarioService } from '../../../services/usuario.service';
 import { Usuario } from './../../../models/usuario.model';
 
@@ -8,13 +9,16 @@ import { Usuario } from './../../../models/usuario.model';
   styles: [],
 })
 export class UsuariosComponent implements OnInit {
-  totalUsuarios: number = 0;
-  usuarios: Usuario[] = [];
-  desde: number = 0;
-  limite: number = 5;
-  cargando: boolean = true;
+  public totalUsuarios: number = 0;
+  public usuarios: Usuario[] = [];
+  public desde: number = 0;
+  public limite: number = 5;
+  public cargando: boolean = true;
 
-  constructor(private usuarioService: UsuarioService) {}
+  constructor(
+    private usuarioService: UsuarioService,
+    private busquedasService: BusquedasService
+  ) {}
 
   ngOnInit(): void {
     this.cargarUsuarios();
@@ -41,5 +45,13 @@ export class UsuariosComponent implements OnInit {
     }
 
     this.cargarUsuarios();
+  }
+
+  buscar(termino: string) {
+    this.cargando = true;
+    this.busquedasService.buscar('usuarios', termino).subscribe((resultados) => {
+      this.usuarios = resultados;
+      this.cargando = false;
+    });
   }
 }
