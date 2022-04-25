@@ -11,6 +11,8 @@ import { RenewTokenResponse } from '../interfaces/validate-token-response.interf
 import { Router } from '@angular/router';
 import { Usuario } from '../models/usuario.model';
 import { UpdateProfileResponse } from '../interfaces/update-profile-response.interfaces';
+import { CargarUsuariosResponse } from '../interfaces/cargar-usuarios-response.interface';
+import { HeadersHttp } from '../interfaces/headers.interface';
 
 const baseUrl = environment.baseUrl;
 
@@ -39,6 +41,12 @@ export class UsuarioService {
     return this.usuario.uid || '';
   }
 
+  get headers(): HeadersHttp {
+    return {
+      headers: { 'x-token': this.token },
+    };
+  }
+
   googleInit() {
     return new Promise<void>((resolve) => {
       gapi.load('auth2', () => {
@@ -54,19 +62,15 @@ export class UsuarioService {
   }
 
   validarToken(): Observable<boolean> {
-    return this.http
-      .get<any>(`${baseUrl}/login/renew`, {
-        headers: { 'x-token': this.token },
-      })
-      .pipe(
-        map((resp: RenewTokenResponse) => {
-          const { email, google, nombre, role, img = '', uid } = resp.usuario;
-          this.usuario = new Usuario(nombre, email, '', img, google, role, uid);
-          localStorage.setItem('token', resp.token);
-          return true;
-        }),
-        catchError(() => of(false))
-      );
+    return this.http.get<any>(`${baseUrl}/login/renew`, this.headers).pipe(
+      map((resp: RenewTokenResponse) => {
+        const { email, google, nombre, role, img = '', uid } = resp.usuario;
+        this.usuario = new Usuario(nombre, email, '', img, google, role, uid);
+        localStorage.setItem('token', resp.token);
+        return true;
+      }),
+      catchError(() => of(false))
+    );
   }
 
   crearUsuario(formData: RegisterForm): Observable<RegisterResponse> {
@@ -79,11 +83,17 @@ export class UsuarioService {
       );
   }
 
-  actualizarPerfil(data: { email: string; nombre: string, role: string }): Observable<UpdateProfileResponse> {
-    data = {...data, role: this.usuario.role};
-    return this.http.put<UpdateProfileResponse>(`${baseUrl}/usuarios/${this.uid}`, data, {
-      headers: { 'x-token': this.token },
-    });
+  actualizarPerfil(data: {
+    email: string;
+    nombre: string;
+    role: string;
+  }): Observable<UpdateProfileResponse> {
+    data = { ...data, role: this.usuario.role };
+    return this.http.put<UpdateProfileResponse>(
+      `${baseUrl}/usuarios/${this.uid}`,
+      data,
+      this.headers
+    );
   }
 
   login(formData: LoginForm): Observable<LoginResponse> {
@@ -111,5 +121,10 @@ export class UsuarioService {
         this.router.navigateByUrl('/login');
       });
     });
+  }
+
+  cargarUsuarios(desde = 0, limite = 5) {
+    const url = `${baseUrl}/usuarios?desde=${desde}&limite=${limite}`;
+    return this.http.get<CargarUsuariosResponse>(url, this.headers);
   }
 }

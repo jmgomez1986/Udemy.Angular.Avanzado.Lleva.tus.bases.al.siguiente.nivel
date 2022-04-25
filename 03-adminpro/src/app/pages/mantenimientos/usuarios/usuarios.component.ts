@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UsuarioService } from '../../../services/usuario.service';
+import { Usuario } from './../../../models/usuario.model';
 
 @Component({
   selector: 'app-usuarios',
@@ -7,10 +9,17 @@ import { Component, OnInit } from '@angular/core';
   ]
 })
 export class UsuariosComponent implements OnInit {
+  totalUsuarios: number = 0;
+  usuarios: Usuario[] = [];
 
-  constructor() { }
+  constructor(private usuarioService: UsuarioService) { }
 
   ngOnInit(): void {
+    this.usuarioService.cargarUsuarios(0, 5)
+      .subscribe(({totalReg, usuarios}) => {
+        this.totalUsuarios = totalReg;
+        this.usuarios = usuarios;
+    })
   }
 
 }
