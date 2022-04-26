@@ -1,4 +1,4 @@
-import { HospitalUser } from "../interfaces/hospital-user.interface";
+import { HospitalUser } from '../interfaces/hospital-user.interface';
 
 export class Hospital {
   constructor(

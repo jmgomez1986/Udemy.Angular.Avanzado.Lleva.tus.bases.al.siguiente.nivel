@@ -12,7 +12,7 @@
 </div>
 
 <!-- Spinner -->
-<div class="row animated fadeIn fast">
+<div *ngIf="cargando" class="row animated fadeIn fast">
   <div class="col-12">
 
     <div class="alert alert-info text-center">
@@ -25,12 +25,12 @@
 </div>
 
 <!-- Tabla -->
-<div class="row">
+<div *ngIf="!cargando" class="row">
 
   <div class="col-12">
     <div class="card">
       <div class="card-body">
-        <h4 class="card-title">Hospitales</h4>
+        <h4 class="card-title">Hospitales {{hospitales.length}}</h4>
         <h6 class="card-subtitle">Hospitales registrados en la aplicación</h6>
 
         <div class="table-responsive">
@@ -45,19 +45,20 @@
             </thead>
             <tbody>
 
-              <tr>
-                <td>Imagen</td>
+              <tr *ngFor="let hospital of hospitales">
+                <td>{{hospital.img}}</td>
                 <td>
                   <input
                     type="text"
                     class="form-control"
-                    placeholder="Nombre del hospital">
+                    placeholder="Nombre del hospital"
+                    [(ngModel)]="hospital.nombre">
                 </td>
                 <td class="text-nowrap text-center">
-                  <a href="#" data-toggle="tooltip" data-original-title="Editar">
+                  <a href="#" data-toggle="tooltip" data-original-title="Guardar cambios">
                     <em class="fa fa-pencil text-inverse m-r-10"></em>
                   </a>
-                  <a href="#" data-toggle="tooltip" data-original-title="Borrar">
+                  <a href="#" data-toggle="tooltip" data-original-title="Borrar hospital">
                     <em class="fa fa-close text-danger"></em>
                   </a>
                 </td>
@@ -68,8 +69,20 @@
 
         </div>
 
-        <button class="btn btn-secondary mr-5">Anterior</button>
-        <button class="btn btn-secondary">Siguiente</button>
+        <!-- <div *ngIf="txtTermino.value.length === 0">
+          <button
+            (click)="cambiarPagina(-limite)"
+            class="btn btn-secondary mr-3"
+            [disabled]="desde === 0">
+            Anterior
+          </button>
+          <button
+            (click)="cambiarPagina(limite)"
+            class="btn btn-secondary"
+            [disabled]="totalUsuarios - desde <= limite">
+            Siguiente
+          </button>
+        </div> -->
 
       </div>
     </div>
