@@ -64,8 +64,6 @@ export class UsuariosComponent implements OnInit, OnDestroy {
       this.desde -= valor;
     }
 
-    console.log('Desde: ', this.desde);
-
     this.cargarUsuarios();
   }
 
@@ -112,7 +110,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   cambiarRol(usuario: Usuario) {
     this.usuarioService
       .guardarUsuario(usuario)
-      .subscribe((resp) => console.log(resp));
+      .subscribe();
   }
 
   abrirModal(usuario: Usuario) {
