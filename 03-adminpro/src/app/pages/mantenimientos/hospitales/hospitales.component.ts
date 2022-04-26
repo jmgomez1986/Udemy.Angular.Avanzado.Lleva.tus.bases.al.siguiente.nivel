@@ -27,4 +27,8 @@ export class HospitalesComponent implements OnInit {
     });
   }
 
+  abrirModal(hospital: Hospital) {
+
+  }
+
 }
