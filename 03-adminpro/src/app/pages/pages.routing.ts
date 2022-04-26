@@ -52,17 +52,17 @@ const routes: Routes = [
       {
         path: 'usuarios',
         component: UsuariosComponent,
-        data: { title: 'Usuarios de aplicacion' },
+        data: { title: 'Mantenimiendo de usuarios' },
       },
       {
         path: 'medicos',
         component: MedicosComponent,
-        data: { title: 'Madicos' },
+        data: { title: 'Mantenimiendo de medicos' },
       },
       {
         path: 'hospitales',
         component: HospitalesComponent,
-        data: { title: 'Hospitales' },
+        data: { title: 'Mantenimiendo de  hospitales' },
       },
     ],
   },
