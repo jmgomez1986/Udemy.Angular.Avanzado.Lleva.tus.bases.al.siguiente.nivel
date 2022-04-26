@@ -152,4 +152,12 @@ export class UsuarioService {
       this.headers
     );
   }
+
+  guardarUsuario(usuario: Usuario): Observable<UpdateProfileResponse> {
+    return this.http.put<UpdateProfileResponse>(
+      `${BASE_URL}/usuarios/${usuario.uid}`,
+      usuario,
+      this.headers
+    );
+  }
 }

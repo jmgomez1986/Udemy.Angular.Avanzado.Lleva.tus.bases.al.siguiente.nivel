@@ -47,6 +47,8 @@ export class UsuariosComponent implements OnInit {
       this.desde -= valor;
     }
 
+    console.log('Desde: ', this.desde);
+
     this.cargarUsuarios();
   }
 
@@ -88,5 +90,11 @@ export class UsuariosComponent implements OnInit {
         }
       });
     }
+  }
+
+  cambiarRol(usuario: Usuario) {
+    this.usuarioService
+      .guardarUsuario(usuario)
+      .subscribe((resp) => console.log(resp));
   }
 }
