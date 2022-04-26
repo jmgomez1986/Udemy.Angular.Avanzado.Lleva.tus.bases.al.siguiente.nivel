@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { BusquedasService } from 'src/app/services/busquedas.service';
 import Swal from 'sweetalert2';
-import { UsuarioService } from '../../../services/usuario.service';
+
 import { Usuario } from './../../../models/usuario.model';
+import { UsuarioService } from '../../../services/usuario.service';
 import { ModalImagenService } from './../../../services/modal-imagen.service';
 
 @Component({
@@ -101,6 +102,6 @@ export class UsuariosComponent implements OnInit {
   }
 
   abrirModal(usuario: Usuario) {
-    this.modalImagenService.abrirModal();
+    this.modalImagenService.abrirModal('usuarios', usuario.uid, usuario.img);
   }
 }
