@@ -1,4 +1,6 @@
-<div class="fondo-modal-imagen animated fadeIn fast" [ngClass]="{'oculto': ocultarModal}">
+<div
+  class="fondo-modal-imagen animated fadeIn fast"
+  [ngClass]="{'oculto': modalImagenService.ocultarModal}">
 
   <div
   class="modal fade show"
@@ -13,7 +15,7 @@
         <h4 class="modal-title" id="exampleModalLabel1">Cargar imágen</h4>
         <button
           type="button"
-          class="close"
+          class="close cursor"
           data-dismiss="modal"
           aria-label="Close"
           (click)="cerrarModal()">
@@ -28,8 +30,18 @@
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="cerrarModal()">Cancelar</button>
-        <button type="button" class="btn btn-primary">Actualizar imágen</button>
+        <button
+          type="button"
+          class="btn btn-default"
+          data-dismiss="modal"
+          (click)="cerrarModal()">
+          Cancelar
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary">
+          Actualizar imágen
+        </button>
       </div>
     </div>
   </div>
