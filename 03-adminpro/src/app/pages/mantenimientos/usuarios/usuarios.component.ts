@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BusquedasService } from 'src/app/services/busquedas.service';
-import { delay, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
+import { delay } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 
 import { Usuario } from './../../../models/usuario.model';

@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { delay, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
+import { delay } from 'rxjs/operators';
 import Swal from 'sweetalert2';
+
 import { HospitalService } from './../../../services/hospital.service';
 import { ModalImagenService } from '../../../services/modal-imagen.service';
 import { BusquedasService } from '../../../services/busquedas.service';
