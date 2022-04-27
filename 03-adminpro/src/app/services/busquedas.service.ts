@@ -6,6 +6,7 @@ import { HeadersHttp } from '../interfaces/headers.interface';
 import { BusquedaResponse } from '../interfaces/busquedas-response.interface';
 import { Usuario } from './../models/usuario.model';
 import { Hospital } from '../models/hospital.model';
+import { Medico } from '../models/medico.model';
 
 const BASE_URL = environment.baseUrl;
 
@@ -44,6 +45,10 @@ export class BusquedasService {
     return resultados;
   }
 
+  private transformarMedicos(resultados: any[]): Medico[] {
+    return resultados;
+  }
+
   buscar(tipo: 'usuarios' | 'medicos' | 'hospitales', termino: string = '') {
     const url = `${BASE_URL}/todo/coleccion/${tipo}/${termino}`;
     return this.http.get<BusquedaResponse>(url, this.headers).pipe(
@@ -53,6 +58,8 @@ export class BusquedasService {
             return this.transformarUsuarios(resp.resultados);
           case 'hospitales':
             return this.transformarHospitales(resp.resultados);
+          case 'medicos':
+            return this.transformarMedicos(resp.resultados);
           default:
             return [];
         }

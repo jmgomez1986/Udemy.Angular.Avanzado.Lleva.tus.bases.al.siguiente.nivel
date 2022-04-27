@@ -53,22 +53,22 @@ const routes: Routes = [
       {
         path: 'usuarios',
         component: UsuariosComponent,
-        data: { title: 'Mantenimiendo de usuarios' },
+        data: { title: 'Mantenimiento de usuarios' },
       },
       {
         path: 'medicos',
         component: MedicosComponent,
-        data: { title: 'Mantenimiendo de medicos' },
+        data: { title: 'Mantenimiento de medicos' },
       },
       {
-        path: 'medicos/:id',
+        path: 'medico/:id',
         component: MedicoComponent,
-        data: { title: 'Mantenimiendo de medicos' },
+        data: { title: 'Mantenimiento de medicos' },
       },
       {
         path: 'hospitales',
         component: HospitalesComponent,
-        data: { title: 'Mantenimiendo de  hospitales' },
+        data: { title: 'Mantenimiento de  hospitales' },
       },
     ],
   },
