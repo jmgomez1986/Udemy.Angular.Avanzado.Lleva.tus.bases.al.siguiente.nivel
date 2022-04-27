@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BusquedasService } from 'src/app/services/busquedas.service';
+import { delay, Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 
 import { Usuario } from './../../../models/usuario.model';
 import { UsuarioService } from '../../../services/usuario.service';
 import { ModalImagenService } from './../../../services/modal-imagen.service';
-import { delay, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-usuarios',
@@ -34,7 +34,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
       .pipe(
         delay(100)
       )
-      .subscribe((img) => {
+      .subscribe(() => {
         this.cargarUsuarios();
       });
   }

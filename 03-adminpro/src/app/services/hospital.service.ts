@@ -26,8 +26,7 @@ export class HospitalService {
     };
   }
 
-  cargarHospitales(desde = 0, limite = 5) {
-    // const url = `${BASE_URL}/hospitales?desde=${desde}&limite=${limite}`;
+  cargarHospitales() {
     const url = `${BASE_URL}/hospitales`;
     return this.http
       .get<CargarHospitalesResponse>(url, this.headers)
