@@ -6,7 +6,7 @@ import { HeadersHttp } from '../interfaces/headers.interface';
 import { CargarHospitalesResponse } from '../interfaces/cargar-hospitales-response.interface';
 import { CrearHospitalResponse } from '../interfaces/crear-hospital-response.interface';
 import { ActualizarHospitalResponse } from '../interfaces/actualizar-hospital-response.interface';
-import { EliminarHospitalResponse } from '../interfaces/eliminar-hospital-response.interface';
+import { EliminarResponse } from '../interfaces/eliminar-response.interface';
 
 const BASE_URL = environment.baseUrl;
 
@@ -49,7 +49,7 @@ export class HospitalService {
 
   eliminarHospital(id: string) {
     const url = `${BASE_URL}/hospitales/${id}`;
-    return this.http.delete<EliminarHospitalResponse>(
+    return this.http.delete<EliminarResponse>(
       url,
       this.headers
     );
