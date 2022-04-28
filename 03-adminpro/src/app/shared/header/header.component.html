@@ -53,13 +53,15 @@
             href="javascript:void(0)">
             <em class="ti-search"></em>
           </a>
-          <form class="app-search">
+          <form class="app-search" (submit)="buscar(txtTermino.value)">
             <input
               type="text"
               class="form-control"
-              placeholder="Search & enter">
-            <a class="srh-btn"><em
-              class="ti-close"></em></a>
+              placeholder="Search & enter"
+              #txtTermino>
+            <a class="srh-btn">
+              <em class="ti-close"></em>
+            </a>
           </form>
         </li>
         <!-- ============================================================== -->

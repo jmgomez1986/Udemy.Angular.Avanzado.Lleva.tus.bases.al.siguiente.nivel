@@ -18,6 +18,10 @@ export class HeaderComponent {
     this.user = this.usuarioService.usuario;
   }
 
+  buscar(value: string) {
+    console.log(value);
+  }
+
   logout() {
     this.usuarioService.logout();
     this.router.navigateByUrl('/login');

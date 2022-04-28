@@ -83,7 +83,7 @@ export class MedicoComponent implements OnInit {
         ...this.medicoForm.value,
         _id: this.medicoSeleccionado._id,
       };
-      this.medicoService.actualizarMedico(data).subscribe((resp) => {
+      this.medicoService.actualizarMedico(data).subscribe(() => {
         Swal.fire(
           'Médico actualizado!',
           `El médico ${nombre} se actualizó correctamente`,
