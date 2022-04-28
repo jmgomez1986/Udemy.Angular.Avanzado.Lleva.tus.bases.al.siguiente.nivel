@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { delay } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import { Hospital } from '../../../models/hospital.model';
 import { Medico } from '../../../models/medico.model';
@@ -56,20 +57,21 @@ export class MedicoComponent implements OnInit {
       return;
     }
 
-    this.medicoService.getMedicoById(id).subscribe({
-      next: (medico) => {
-        this.medicoSeleccionado = medico;
-        // this.medicoForm.get('nombre').setValue(medico.nombre);
-        // this.medicoForm.get('hospital').setValue(medico.hospital._id);
-        this.medicoForm.setValue({
-          nombre: medico.nombre,
-          hospital: medico.hospital._id,
-        });
-      },
-      error: () => {
-        this.router.navigateByUrl('/dashboard/medicos');
-      },
-    });
+    this.medicoService
+      .getMedicoById(id)
+      .pipe(delay(100))
+      .subscribe({
+        next: (medico) => {
+          this.medicoSeleccionado = medico;
+          this.medicoForm.setValue({
+            nombre: medico.nombre,
+            hospital: medico.hospital._id,
+          });
+        },
+        error: () => {
+          this.router.navigateByUrl('/dashboard/medicos');
+        },
+      });
   }
 
   guardarMedico() {
@@ -82,7 +84,6 @@ export class MedicoComponent implements OnInit {
         _id: this.medicoSeleccionado._id,
       };
       this.medicoService.actualizarMedico(data).subscribe((resp) => {
-        console.log(resp);
         Swal.fire(
           'Médico actualizado!',
           `El médico ${nombre} se actualizó correctamente`,
@@ -91,7 +92,6 @@ export class MedicoComponent implements OnInit {
       });
     } else {
       // Crear
-      const { nombre } = this.medicoForm.value;
       this.medicoService
         .crearMedico(this.medicoForm.value)
         .subscribe((resp) => {
