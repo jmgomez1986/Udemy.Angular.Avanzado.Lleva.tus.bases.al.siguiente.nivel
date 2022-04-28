@@ -27,7 +27,7 @@ export class MedicoComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe(({id}) => {
+    this.activatedRoute.params.subscribe(({ id }) => {
       this.cargarMedico(id);
     });
 
@@ -51,25 +51,57 @@ export class MedicoComponent implements OnInit {
     });
   }
 
-  guardarMedico() {
-    const { nombre } = this.medicoForm.value;
-    console.log('Form: ', this.medicoForm);
-    this.medicoService.crearMedico(this.medicoForm.value).subscribe((resp) => {
-      Swal.fire(
-        'Médico creado!',
-        `El médico ${nombre} fue creado correctamente`,
-        'success'
-      );
-      this.router.navigateByUrl(`/dashboard/medico/${resp.medico._id}`);
+  cargarMedico(id: string) {
+    if (id === 'nuevo') {
+      return;
+    }
+
+    this.medicoService.getMedicoById(id).subscribe({
+      next: (medico) => {
+        this.medicoSeleccionado = medico;
+        // this.medicoForm.get('nombre').setValue(medico.nombre);
+        // this.medicoForm.get('hospital').setValue(medico.hospital._id);
+        this.medicoForm.setValue({
+          nombre: medico.nombre,
+          hospital: medico.hospital._id,
+        });
+      },
+      error: () => {
+        this.router.navigateByUrl('/dashboard/medicos');
+      },
     });
   }
 
-  cargarMedico(id: string) {
-    this.medicoService.getMedicoById(id).subscribe(medico => {
-      console.log(medico);
-      this.medicoSeleccionado = medico;
-    }, () => {
-      this.medicoSeleccionado = new Medico('');
-    });
+  guardarMedico() {
+    const { nombre } = this.medicoForm.value;
+
+    if (this.medicoSeleccionado) {
+      // Actializar
+      const data: Medico = {
+        ...this.medicoForm.value,
+        _id: this.medicoSeleccionado._id,
+      };
+      this.medicoService.actualizarMedico(data).subscribe((resp) => {
+        console.log(resp);
+        Swal.fire(
+          'Médico actualizado!',
+          `El médico ${nombre} se actualizó correctamente`,
+          'success'
+        );
+      });
+    } else {
+      // Crear
+      const { nombre } = this.medicoForm.value;
+      this.medicoService
+        .crearMedico(this.medicoForm.value)
+        .subscribe((resp) => {
+          Swal.fire(
+            'Médico creado!',
+            `El médico ${nombre} se creó correctamente`,
+            'success'
+          );
+          this.router.navigateByUrl(`/dashboard/medico/${resp.medico._id}`);
+        });
+    }
   }
 }
