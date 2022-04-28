@@ -10,11 +10,12 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { PerfilComponent } from './perfil/perfil.component';
+import { BusquedasComponent } from './busquedas/busquedas.component';
 // Mantenimientos
 import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
 import { MedicosComponent } from './mantenimientos/medicos/medicos.component';
-import { HospitalesComponent } from './mantenimientos/hospitales/hospitales.component';
 import { MedicoComponent } from './mantenimientos/medicos/medico.component';
+import { HospitalesComponent } from './mantenimientos/hospitales/hospitales.component';
 
 const routes: Routes = [
   {
@@ -69,6 +70,11 @@ const routes: Routes = [
         path: 'hospitales',
         component: HospitalesComponent,
         data: { title: 'Mantenimiento de  hospitales' },
+      },
+      {
+        path: 'buscar/:termino',
+        component: BusquedasComponent,
+        data: { title: 'Busquedas' },
       },
     ],
   },

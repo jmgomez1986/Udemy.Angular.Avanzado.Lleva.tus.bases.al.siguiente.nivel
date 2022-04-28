@@ -18,8 +18,10 @@ export class HeaderComponent {
     this.user = this.usuarioService.usuario;
   }
 
-  buscar(value: string) {
-    console.log(value);
+  buscar(termino: string) {
+    if (termino.length > 0) {
+      this.router.navigateByUrl(`/dashboard/buscar/${termino}`);
+    }
   }
 
   logout() {
