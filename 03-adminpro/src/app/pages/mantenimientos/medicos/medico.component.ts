@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { HospitalService } from './../../../services/hospital.service';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { Hospital } from '../../../models/hospital.model';
+import { Medico } from '../../../models/medico.model';
+import { HospitalService } from './../../../services/hospital.service';
+import { MedicoService } from '../../../services/medico.service';
 
 @Component({
   selector: 'app-medico',
@@ -11,30 +15,47 @@ import { Hospital } from '../../../models/hospital.model';
 export class MedicoComponent implements OnInit {
   public medicoForm: FormGroup;
   public hospitales: Hospital[] = [];
+  public medicoSeleccionado: Medico;
   public hospitalSeleccionado: Hospital;
 
-  constructor(private fb: FormBuilder, private hospitalService: HospitalService) {}
+  constructor(
+    private fb: FormBuilder,
+    private hospitalService: HospitalService,
+    private medicoService: MedicoService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.medicoForm = this.fb.group({
-      nombre: ['Matias', Validators.required],
+      nombre: ['', Validators.required],
       hospital: ['', Validators.required],
     });
 
     this.cargarHospitales();
 
-    this.medicoForm.get('hospital').valueChanges.subscribe(hospitalId => {
-      this.hospitalSeleccionado = this.hospitales.find(hosp => hosp._id === hospitalId);
+    this.medicoForm.get('hospital').valueChanges.subscribe((hospitalId) => {
+      this.hospitalSeleccionado = this.hospitales.find(
+        (hosp) => hosp._id === hospitalId
+      );
     });
   }
 
-  cargarHospitales () {
+  cargarHospitales() {
     this.hospitalService.cargarHospitales().subscribe((hospitales) => {
       this.hospitales = hospitales;
     });
   }
 
   guardarMedico() {
+    const { nombre } = this.medicoForm.value;
     console.log('Form: ', this.medicoForm);
+    this.medicoService.crearMedico(this.medicoForm.value).subscribe((resp) => {
+      Swal.fire(
+        'Médico creado!',
+        `El médico ${nombre} fue creado correctamente`,
+        'success'
+      );
+      this.router.navigateByUrl(`/dashboard/medico/${resp.medico._id}`);
+    });
   }
 }

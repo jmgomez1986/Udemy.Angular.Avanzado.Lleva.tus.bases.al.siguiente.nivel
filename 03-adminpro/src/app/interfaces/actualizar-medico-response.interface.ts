@@ -2,7 +2,7 @@ interface _Medico {
   nombre: string;
   usuario: string;
   hospital: string;
-  uid: string;
+  _id: string;
 }
 
 export interface ActualizarMedicoResponse {
