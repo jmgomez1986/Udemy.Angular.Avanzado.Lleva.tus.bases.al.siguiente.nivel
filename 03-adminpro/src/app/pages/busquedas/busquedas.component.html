@@ -7,23 +7,30 @@
 
         <h3>Usuarios</h3>
 
-        <div class="alert alert-info">
+        <div *ngIf="usuarios.length === 0" class="alert alert-info animated fadeIn fast">
           <p class="mb-o">No hay usuarios con ese término</p>
         </div>
 
-        <div class="table-responsive">
+        <div *ngIf="usuarios.length > 0" class="table-responsive">
 
           <table class="table table-bordered" aria-label="tablaUsuarios">
             <thead>
               <tr>
-                <th class="w100">Avatar</th>
+                <th class="w50">Avatar</th>
                 <th>Nombre</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td class="text-center">Avatar</td>
-                <td>Nombre</td>
+              <tr *ngFor="let usuario of usuarios" class="animated fadeIn fast">
+                <td class="text-center">
+
+                  <img
+                    [src]="usuario.img | imagen: 'usuarios'"
+                    alt="Foto del usuario"
+                    class="w50">
+
+                </td>
+                <td>{{usuario.nombre}}</td>
               </tr>
             </tbody>
           </table>
@@ -41,23 +48,34 @@
 
         <h3>Médicos</h3>
 
-        <div class="alert alert-info">
+        <div *ngIf="medicos.length === 0" class="alert alert-info animated fadeIn fast">
           <p class="mb-o">No hay médicos con ese término</p>
         </div>
 
-        <div class="table-responsive">
+        <div *ngIf="medicos.length > 0" class="table-responsive">
 
           <table class="table table-bordered" aria-label="tablaMedicos">
             <thead>
               <tr>
-                <th class="w100">Avatar</th>
+                <th class="w50">Avatar</th>
                 <th>Nombre</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td class="text-center">Avatar</td>
-                <td>Nombre</td>
+              <tr
+                *ngFor="let medico of medicos"
+                class="animated fadeIn fast cursor"
+                [routerLink]="['/dashboard/medico', medico._id]"
+                >
+                <td class="text-center">
+
+                  <img
+                    [src]="medico.img | imagen: 'medicos'"
+                    alt="Foto del medico"
+                    class="w50">
+
+                </td>
+                <td>{{medico.nombre}}</td>
               </tr>
             </tbody>
           </table>
@@ -75,23 +93,30 @@
 
         <h3>Hospitales</h3>
 
-        <div class="alert alert-info">
+        <div *ngIf="hospitales.length === 0" class="alert alert-info animated fadeIn fast">
           <p class="mb-o">No hay Hospitales con ese término</p>
         </div>
 
-        <div class="table-responsive">
+        <div *ngIf="hospitales.length > 0" class="table-responsive">
 
           <table class="table table-bordered" aria-label="tablaHospitales">
             <thead>
               <tr>
-                <th class="w100">Avatar</th>
+                <th class="w50">Avatar</th>
                 <th>Nombre</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td class="text-center">Avatar</td>
-                <td>Nombre</td>
+              <tr *ngFor="let hospital of hospitales" class="animated fadeIn fast">
+                <td class="text-center">
+
+                  <img
+                    [src]="hospital.img | imagen: 'hospitales'"
+                    alt="Foto del hospital"
+                    class="w50">
+
+                </td>
+                <td>{{hospital.nombre}}</td>
               </tr>
             </tbody>
           </table>

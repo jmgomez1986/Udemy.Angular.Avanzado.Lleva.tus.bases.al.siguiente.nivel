@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { HeadersHttp } from '../interfaces/headers.interface';
-import { BusquedaResponse } from '../interfaces/busquedas-response.interface';
+import { BusquedaResponse, BusquedaGlobalResponse } from '../interfaces/busquedas-response.interface';
 import { Usuario } from './../models/usuario.model';
 import { Hospital } from '../models/hospital.model';
 import { Medico } from '../models/medico.model';
@@ -47,6 +47,11 @@ export class BusquedasService {
 
   private transformarMedicos(resultados: any[]): Medico[] {
     return resultados;
+  }
+
+  busquedaGlobal(termino: string = '') {
+    const url = `${BASE_URL}/todo/${termino}`;
+    return this.http.get<BusquedaGlobalResponse>(url, this.headers);
   }
 
   buscar(tipo: 'usuarios' | 'medicos' | 'hospitales', termino: string = '') {
