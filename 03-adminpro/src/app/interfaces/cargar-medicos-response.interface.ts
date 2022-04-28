@@ -5,3 +5,9 @@ export interface CargarMedicosResponse {
   ok: boolean;
   uid: string;
 }
+
+export interface CargarMedicoByIdResponse {
+  medicos: Medico;
+  ok: boolean;
+  uid: string;
+}

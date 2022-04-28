@@ -3,8 +3,7 @@ import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ActualizarMedicoResponse } from '../interfaces/actualizar-medico-response.interface';
-import { CargarHospitalesResponse } from '../interfaces/cargar-hospitales-response.interface';
-import { CargarMedicosResponse } from '../interfaces/cargar-medicos-response.interface';
+import { CargarMedicosResponse, CargarMedicoByIdResponse } from '../interfaces/cargar-medicos-response.interface';
 import { EliminarResponse } from '../interfaces/eliminar-response.interface';
 import { HeadersHttp } from '../interfaces/headers.interface';
 import { Medico } from '../models/medico.model';
@@ -12,10 +11,9 @@ import { Medico } from '../models/medico.model';
 const BASE_URL = environment.baseUrl;
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MedicoService {
-
   constructor(private http: HttpClient) {}
 
   get token(): string {
@@ -35,25 +33,25 @@ export class MedicoService {
       .pipe(map((resp) => resp.medicos));
   }
 
-  crearMedico(medico: {nombre: string, hospital: string}) {
+  getMedicoById(id: string) {
+    const url = `${BASE_URL}/medicos/${id}`;
+    return this.http
+      .get<CargarMedicoByIdResponse>(url, this.headers)
+      .pipe(map((resp) => resp.medicos));
+  }
+
+  crearMedico(medico: { nombre: string; hospital: string }) {
     const url = `${BASE_URL}/medicos`;
     return this.http.post<ActualizarMedicoResponse>(url, medico, this.headers);
   }
 
   actualizarMedico(medico: Medico) {
     const url = `${BASE_URL}/medicos/${medico._id}`;
-    return this.http.put<ActualizarMedicoResponse>(
-      url,
-      medico,
-      this.headers
-    );
+    return this.http.put<ActualizarMedicoResponse>(url, medico, this.headers);
   }
 
   eliminarMedico(id: string) {
     const url = `${BASE_URL}/medicos/${id}`;
-    return this.http.delete<EliminarResponse>(
-      url,
-      this.headers
-    );
+    return this.http.delete<EliminarResponse>(url, this.headers);
   }
 }

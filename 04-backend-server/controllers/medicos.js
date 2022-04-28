@@ -3,14 +3,8 @@ const Medico = require('../models/medico');
 
 const getMedicos = async (req, res = response) => {
 	const medicos = await Medico.find()
-    .populate(
-      'usuario',
-      'nombre img'
-    )
-    .populate(
-      'hospital',
-      'nombre img'
-    );
+		.populate('usuario', 'nombre img')
+		.populate('hospital', 'nombre img');
 
 	res.json({
 		ok: true,
@@ -96,7 +90,29 @@ const borrarMedico = async (req, res = response) => {
 
 		res.json({
 			ok: true,
-			msg: 'Medico eliminado'
+			msg: 'Medico eliminado',
+		});
+	} catch (error) {
+    console.log(error);
+		res.status(500).json({
+			ok: false,
+			msg: 'Error inesperado....',
+		});
+	}
+};
+
+const getMedicoById = async (req, res = response) => {
+	const id = req.params.id;
+
+	try {
+		const medicos = await Medico.findById(id)
+			.populate('usuario', 'nombre img')
+			.populate('hospital', 'nombre img');
+
+		res.json({
+			ok: true,
+			medicos,
+			uid: req.uid,
 		});
 	} catch (error) {
 		console.log(error);
@@ -112,4 +128,5 @@ module.exports = {
 	crearMedico,
 	actualizarMedico,
 	borrarMedico,
+	getMedicoById,
 };
