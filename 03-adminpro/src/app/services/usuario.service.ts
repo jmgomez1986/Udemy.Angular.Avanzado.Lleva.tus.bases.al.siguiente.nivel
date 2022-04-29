@@ -49,6 +49,11 @@ export class UsuarioService {
     };
   }
 
+  guardarLocaltorage(token: string, menu: any) {
+    localStorage.setItem('token', token);
+    localStorage.setItem('menu', JSON.stringify(menu));
+  }
+
   googleInit() {
     return new Promise<void>((resolve) => {
       gapi.load('auth2', () => {
@@ -68,7 +73,7 @@ export class UsuarioService {
       map((resp: RenewTokenResponse) => {
         const { email, google, nombre, role, img = '', uid } = resp.usuario;
         this.usuario = new Usuario(nombre, email, '', img, google, role, uid);
-        localStorage.setItem('token', resp.token);
+        this.guardarLocaltorage(resp.token, resp.menu);
         return true;
       }),
       catchError(() => of(false))
@@ -80,7 +85,7 @@ export class UsuarioService {
       .post<RegisterResponse>(`${BASE_URL}/usuarios`, formData)
       .pipe(
         tap((resp) => {
-          localStorage.setItem('token', resp.token);
+          this.guardarLocaltorage(resp.token, resp.menu);
         })
       );
   }
@@ -101,7 +106,7 @@ export class UsuarioService {
   login(formData: LoginForm): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${BASE_URL}/login`, formData).pipe(
       tap((resp) => {
-        localStorage.setItem('token', resp.token);
+        this.guardarLocaltorage(resp.token, resp.menu);
       })
     );
   }
@@ -109,13 +114,14 @@ export class UsuarioService {
   loginGoogle(token: string): Observable<any> {
     return this.http.post<any>(`${BASE_URL}/login/google`, { token }).pipe(
       tap((resp) => {
-        localStorage.setItem('token', resp.token);
+        this.guardarLocaltorage(resp.token, resp.menu);
       })
     );
   }
 
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('menu');
 
     gapi.auth2.getAuthInstance();
     this.auth2.signOut().then(() => {

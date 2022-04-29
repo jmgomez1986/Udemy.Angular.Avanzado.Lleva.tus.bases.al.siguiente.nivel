@@ -9,4 +9,5 @@ export interface RegisterResponse {
   nombre: string;
   role: string;
   uid: string;
+  menu: any
 }

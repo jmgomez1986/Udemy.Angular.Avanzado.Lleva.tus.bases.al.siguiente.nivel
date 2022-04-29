@@ -4,5 +4,6 @@ export interface RenewTokenResponse {
   ok: boolean;
   msg: string;
   token: string;
-  usuario: Usuario
+  usuario: Usuario,
+  menu: any
 }

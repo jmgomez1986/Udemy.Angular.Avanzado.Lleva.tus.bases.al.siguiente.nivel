@@ -10,15 +10,15 @@ import { Usuario } from './../../models/usuario.model';
   styles: [],
 })
 export class SidebarComponent {
-  public menuItems: any[];
+  // public menuItems: any[];
   public user: Usuario;
 
   constructor(
     private router: Router,
-    private sidebarService: SidebarService,
+    public sidebarService: SidebarService,
     private usuarioService: UsuarioService
   ) {
-    this.menuItems = this.sidebarService.menu;
+    // this.menuItems = this.sidebarService.menu;
     this.user = this.usuarioService.usuario;
   }
 
