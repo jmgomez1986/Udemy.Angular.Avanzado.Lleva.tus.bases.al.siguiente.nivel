@@ -34,8 +34,4 @@ export class BusquedasComponent implements OnInit {
       this.hospitales = resp.hospitales;
     });
   }
-
-  abrirMedico(medico: Medico) {
-    this.router.navigateByUrl(`/dashboard/medico/${medico._id}`);
-  }
 }
