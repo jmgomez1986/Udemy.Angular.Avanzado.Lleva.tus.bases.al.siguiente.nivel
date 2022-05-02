@@ -6,14 +6,10 @@ import { Injectable } from '@angular/core';
 export class SidebarService {
   menu: any[] = [];
 
-  getMenu() {
-    return this.menu;
-  }
   cargarMenu() {
     this.menu = JSON.parse(localStorage.getItem('menu')) || [];
   }
 
-  constructor() {}
   // menu: any[] = [
   //   {
   //     titulo: 'Dashboard',

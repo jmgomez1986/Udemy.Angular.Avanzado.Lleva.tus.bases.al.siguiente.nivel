@@ -3,7 +3,7 @@ import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Observable, of } from 'rxjs';
-import { tap, map, catchError } from 'rxjs/operators';
+import { tap, map, catchError, retry } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
 import { RegisterForm } from '../interfaces/registrar-form.interface';
@@ -47,6 +47,10 @@ export class UsuarioService {
     return {
       headers: { 'x-token': this.token },
     };
+  }
+
+  get role(): 'ADMIN_ROLE' | 'USER_ROLE' {
+    return this.usuario.role;
   }
 
   guardarLocaltorage(token: string, menu: any) {
