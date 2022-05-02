@@ -41,6 +41,8 @@ export class PerfilComponent implements OnInit {
       },
       error: (err) => {
         Swal.fire('Error!', err.error.msg, 'error');
+        this.profileForm.get('nombre').setValue(this.usuario.nombre);
+        this.profileForm.get('email').setValue(this.usuario.email);
       },
     });
   }
