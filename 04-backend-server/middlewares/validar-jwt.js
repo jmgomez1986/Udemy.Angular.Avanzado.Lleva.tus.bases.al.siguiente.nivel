@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const Usuario = require('../models/usuario');
 
 const validarJWT = (req, res, next) => {
 	// Leer Token del header
@@ -25,4 +26,32 @@ const validarJWT = (req, res, next) => {
 	}
 };
 
-module.exports = { validarJWT };
+const validarAdminRole = async (req, res, next) => {
+	const uid = req.uid;
+	try {
+		const usuarioDB = await Usuario.findById(uid);
+
+		if (!usuarioDB) {
+			return res.status(404).json({
+				ok: false,
+				msg: 'El usuario no existe',
+			});
+		}
+
+		if (usuarioDB.role !== 'ADMIN_ROLE') {
+			return res.status(403).json({
+				ok: false,
+				msg: 'No posee privilegios suficientes para realizar esta acción. Contacte al administrador',
+			});
+		}
+
+    next();
+	} catch (error) {
+		return res.status(500).json({
+			ok: false,
+			msg: 'Error interno',
+		});
+	}
+};
+
+module.exports = { validarJWT, validarAdminRole };
