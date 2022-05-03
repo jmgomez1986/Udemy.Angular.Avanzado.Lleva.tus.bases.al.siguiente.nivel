@@ -8,10 +8,6 @@ const getTodo = async (req, res = response) => {
 	const busqueda = req.params.busqueda;
 	const regexp = new RegExp(busqueda, 'i');
 
-	// const usuarios = await Usuario.find({ nombre: regexp });
-	// const medicos = await Medico.find({ nombre: regexp });
-	// const hospitales = await Hospital.find({ nombre: regexp });
-
 	const [usuarios, medicos, hospitales] = await Promise.all([
 		Usuario.find({ nombre: regexp }),
 		Medico.find({ nombre: regexp }),
@@ -63,61 +59,59 @@ const getDocumentosColeccion = async (req, res = response) => {
 		ok: true,
 		resultados: data,
 	});
+};
 
-	// Opcion con tabla y modelos dinamico
-	// const tablesModels = [
-	// 	{
-	// 		table: 'usuarios',
-	// 		model: Usuario,
-	// 		populate: null,
-	// 	},
-	// 	{
-	// 		table: 'medicos',
-	// 		model: Medico,
-	// 		populate: [
-	// 			{
-	// 				model: 'usuario',
-	// 				fields: 'nombre email img',
-	// 			},
-	// 			{
-	// 				model: 'hospital',
-	// 				fields: 'nombre img',
-	// 			},
-	// 		],
-	// 	},
-	// 	{
-	// 		table: 'hospitales',
-	// 		model: Hospital,
-	// 		populate: [
-	// 			{
-	// 				model: 'usuario',
-	// 				fields: 'nombre email img',
-	// 			}
-	// 		],
-	// 	},
-	// ];
+const getDocumentosColeccionPag = async (req, res = response) => {
+	const desde = Number(req.query.desde) || 0;
+  const limite = Number(req.query.limite) || 0;
+	const tabla = req.params.tabla;
+	const patron = req.params.busqueda;
+	const regex = new RegExp(patron, 'i');
+	let data;
+	let total;
 
-	// const tableModel = tablesModels.find((tm) => tm.table === tabla);
-	// console.log(tableModel);
-	// if (tableModel) {
-	// 	const data = await tableModel.model
-	// 		.find({ nombre: regexp })
-	// 		.populate(tableModel.populate[0].model, tableModel.populate[0].fields)
-	// 		.populate(tableModel.populate[1]?.model, tableModel.populate[1]?.fields);
+	switch (tabla) {
+		case 'medicos':
+			data = await Medico.find({ nombre: regex })
+				.populate('usuario', 'nombre img')
+        .populate('hospital', 'nombre img')
+				.skip(desde)
+				.limit(limite);
+			total = await Medico.countDocuments({ nombre: regex });
 
-	// 	res.json({
-	// 		ok: true,
-	// 		resultados: data,
-	// 	});
-	// } else {
-	// 	res.status(500).json({
-	// 		ok: false,
-	// 		msg: 'La tabla tiene que ser usuarios - medicos - hospitales',
-	// 	});
-	// }
+			break;
+
+		case 'hospitales':
+			data = await Hospital.find({ nombre: regex })
+				.populate('usuario', 'nombre img')
+				.skip(desde)
+				.limit(limite);
+			total = await Hospital.countDocuments({ nombre: regex });
+			break;
+
+		case 'usuarios':
+			data = await Usuario.find({ nombre: regex })
+        .skip(desde)
+        .limit(limite);
+			total = await Usuario.countDocuments({ nombre: regex });
+			break;
+
+		default:
+			return res.status(400).json({
+				ok: false,
+				msg: 'La tabla tiene que ser usuarios | medicos | hospitales',
+			});
+	}
+
+	res.json({
+		ok: true,
+		resultados: data,
+		total,
+	});
 };
 
 module.exports = {
 	getTodo,
 	getDocumentosColeccion,
+  getDocumentosColeccionPag
 };
