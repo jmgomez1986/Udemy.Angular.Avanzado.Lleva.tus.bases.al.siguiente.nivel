@@ -225,3 +225,10 @@
   - Optimizar el tiempo de renovación de token
   - Resolver problema con las imágenes mal ubicadas en la versión de distribución
   - Crear la versión de distribución
+
+# Seccion 20
+
+  - Interceptores
+  - Operadores de RXJS como map, catchError
+  - Objetos propios de RXJS como el throwError
+  - Explicaremos el por qué de los interceptores y cómo usarlos
