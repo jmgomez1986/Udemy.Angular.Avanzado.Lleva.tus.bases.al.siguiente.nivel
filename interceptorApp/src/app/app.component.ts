@@ -14,9 +14,10 @@ export class AppComponent {
       next: (resp) => {
         console.log(resp);
       },
-      error: (err) => {
+      error: () => {
         console.log('Error en el appComponent');
       },
     });
   }
+
 }
