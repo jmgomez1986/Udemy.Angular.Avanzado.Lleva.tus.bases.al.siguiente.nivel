@@ -19,7 +19,7 @@ export class UsuariosService {
     });
 
     return this.http
-      .get('https://reqres4351345.in/api/users', {
+      .get('https://reqres.in/api/users', {
         params,
         headers,
       })
