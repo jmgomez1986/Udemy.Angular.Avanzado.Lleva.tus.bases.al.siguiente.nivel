@@ -232,3 +232,16 @@
   - Operadores de RXJS como map, catchError
   - Objetos propios de RXJS como el throwError
   - Explicaremos el por qué de los interceptores y cómo usarlos
+
+# Seccion 21
+
+  - Inicio en pruebas
+
+# Seccion 22
+
+  - Probaremos Strings
+  - Números
+  - Booleanos
+  - Arreglos
+  - Clases
+  - Cobertura de nuestras pruebas.
