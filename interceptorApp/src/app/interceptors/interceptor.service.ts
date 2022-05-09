@@ -14,7 +14,6 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class InterceptorService implements HttpInterceptor {
-  constructor() {}
 
   intercept(
     req: HttpRequest<any>,
@@ -34,9 +33,6 @@ export class InterceptorService implements HttpInterceptor {
   }
 
   manejaError(error: HttpErrorResponse) {
-    console.log('Sucedio un error!!!');
-    console.log('Registrado en el log file');
-    console.warn(error);
     return throwError(() => new Error('Error personalizado'));
   }
 }
