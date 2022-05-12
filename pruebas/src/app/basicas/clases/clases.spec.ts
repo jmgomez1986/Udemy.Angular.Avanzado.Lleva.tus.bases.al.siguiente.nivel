@@ -21,7 +21,7 @@ describe('Pruebas de clase', () => {
     expect(resp).toBe(50);
   });
 
-  it('Debe de retornar 100 de hp si recibe 100 de daño', () => {
+  it('Debe de retornar 100 de hp si recibe 100 de daño o mas', () => {
     const resp = jugador.recibeDanio(100);
 
     expect(resp).toBe(0);
