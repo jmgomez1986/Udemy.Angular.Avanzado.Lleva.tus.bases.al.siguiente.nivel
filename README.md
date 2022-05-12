@@ -245,3 +245,13 @@
   - Arreglos
   - Clases
   - Cobertura de nuestras pruebas.
+
+# Seccion 23
+
+  - Pruebas sobre Event Emitter
+  - Formularios
+  - Validaciones
+  - Saltar pruebas
+  - Espías
+  - Simular retornos de servicios
+  - Simular llamado de funciones
