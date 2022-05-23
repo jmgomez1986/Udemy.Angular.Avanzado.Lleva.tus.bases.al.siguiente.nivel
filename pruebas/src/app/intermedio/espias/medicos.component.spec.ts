@@ -1,6 +1,6 @@
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
-import { from } from 'rxjs';
+import { EMPTY, from, Observable, of } from 'rxjs';
 import { MedicosComponent } from './medicos.component';
 import { MedicosService } from './medicos.service';
 
@@ -34,4 +34,17 @@ describe('MedicosComponent', () => {
     componente.ngOnInit();
     expect(componente.medicos.length).toBeGreaterThan(0);
   });
+
+  it('Debe llamar al servidor para agregar un médico', () => {
+    // Forma 1
+    // const espia = spyOn(servicio, 'agregarMedico').and.callFake(()=> new Observable());
+    // Forma 2
+    const espia = spyOn(servicio, 'agregarMedico').and.callFake(() => of());
+    //Forma 3
+    // const espia = spyOn(servicio, 'agregarMedico').and.callFake(() => EMPTY);
+
+    componente.agregarMedico();
+
+    expect(espia).toHaveBeenCalled();
+})
 });
