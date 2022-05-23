@@ -22,7 +22,6 @@ describe('MedicosComponent', () => {
     // const fixture = TestBed.createComponent(MedicosComponent);
     // componente = fixture.componentInstance;
     // servicio = fixture.debugElement.injector.get(MedicosService);
-
   });
 
   it('Debe de cargar los médicos', () => {
@@ -46,5 +45,15 @@ describe('MedicosComponent', () => {
     componente.agregarMedico();
 
     expect(espia).toHaveBeenCalled();
-})
+  });
+
+  it('Debe de agregar un nuevo médico al arreglo de médicos', () => {
+    const medico = { id: 1, nombre: 'Juan' };
+
+    spyOn(servicio, 'agregarMedico').and.returnValue(from([medico]));
+
+    componente.agregarMedico();
+
+    expect(componente.medicos.indexOf(medico)).toBeGreaterThanOrEqual(0);
+  });
 });
