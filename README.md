@@ -255,3 +255,13 @@
   - Espías
   - Simular retornos de servicios
   - Simular llamado de funciones
+
+# Seccion 24
+
+  - Aprender la configuración básica de una prueba de integración
+  - Comprobación básica de un componente
+  - TestingModule
+  - Archivos SPEC generados automáticamente por el AngularCLI
+  - Pruebas en el HTML
+  - Revisar inputs y elementos HTML
+  - Separación entre pruebas unitarias y pruebas de integración
