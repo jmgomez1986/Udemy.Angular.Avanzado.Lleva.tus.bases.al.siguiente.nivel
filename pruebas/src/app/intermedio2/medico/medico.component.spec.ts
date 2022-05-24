@@ -19,7 +19,13 @@ describe('MedicoComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('Debe de crearse el componente', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('Debe de retornar el nombre del medico', () => {
+    const nombre = 'Matias';
+    const respuesta = component.saludarMedico(nombre);
+    expect(respuesta).toContain(nombre);
   });
 });
