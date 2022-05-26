@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-describe('Incremendator Component', () => {
+describe('Incremendador Component', () => {
   let component: IncrementadorComponent;
   let fixture: ComponentFixture<IncrementadorComponent>;
 
