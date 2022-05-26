@@ -7,6 +7,8 @@ import { MedicoComponent } from './intermedio2/medico/medico.component';
 import { HospitalComponent } from './intermedio2/hospital/hospital.component';
 import { IncrementadorComponent } from './intermedio2/incrementador/incrementador.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { RUTAS } from './avanzado/rutas/app.routes';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule.forRoot(RUTAS)
   ],
   providers: [],
   bootstrap: [AppComponent]
