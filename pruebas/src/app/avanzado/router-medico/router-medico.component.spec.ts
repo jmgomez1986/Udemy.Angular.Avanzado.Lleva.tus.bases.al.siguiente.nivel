@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { of, Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
 
 import { RouterMedicoComponent } from './router-medico.component';
 
@@ -12,7 +12,7 @@ class FakeRouter {
 }
 
 class FakeActivatedRoute {
-  params: Observable<any> = of({});
+  params: Observable<any> = from([{id: '123'}]);
 }
 
 describe('RouterMedicoComponent', () => {
@@ -42,5 +42,10 @@ describe('RouterMedicoComponent', () => {
     component.guardarMedico();
 
     expect(spy).toHaveBeenCalledWith(['medico', '123']);
+  });
+
+  it('Debe de colocar el id = nuevo', () => {
+
+    expect(component.id).toBe('123');
   });
 });
