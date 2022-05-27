@@ -4,16 +4,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-router-medico',
   templateUrl: './router-medico.component.html',
-  styles: [
-  ]
+  styles: [],
 })
 export class RouterMedicoComponent implements OnInit {
   id: string = '';
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) { }
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe(params => {
+    this.activatedRoute.params.subscribe((params) => {
       this.id = params['id'];
     });
   }
@@ -21,5 +20,4 @@ export class RouterMedicoComponent implements OnInit {
   guardarMedico() {
     this.router.navigate(['medico', '123']);
   }
-
 }
