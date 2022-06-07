@@ -27,7 +27,8 @@ module.exports = {
     "import",
   ],
   rules: {
-    "quotes": ["error", "double"],
+    "quotes": ["warn", "single"],
+    indent: ['warn', 2, { SwitchCase: 1 }],
     "import/no-unresolved": 0,
   },
 };
