@@ -1,6 +1,9 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 
+import * as express from 'express';
+import * as cors from 'cors';
+
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const serviceAccount = require('./serviceAccountKey.json');
 
@@ -30,3 +33,17 @@ export const getGOTY = functions.https.onRequest(async (request, response) => {
 
   response.json( juegos );
 });
+
+// Express
+const app = express();
+app.use(cors({origin: true}));
+
+app.get('/goty', async (req, res) => {
+  const gotyRef = db.collection('goty');
+  const docsSnap = await gotyRef.get();
+  const juegos = docsSnap.docs.map( (doc) => doc.data() );
+
+  res.json( juegos );
+});
+
+export const api = functions.https.onRequest(app);
