@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
 import { Game } from '../interfaces/interfaces';
@@ -25,5 +25,9 @@ export class GameService {
         .get<Game[]>(`${environment.url}/api/goty`)
         .pipe(tap((juegos) => (this.juegos = juegos)));
     }
+  }
+
+  votarJuego(id: string) {
+    return this.http.post(`${environment.url}/api/goty/${id}`, {});
   }
 }
