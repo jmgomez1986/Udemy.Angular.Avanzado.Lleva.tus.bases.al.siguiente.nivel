@@ -23,9 +23,11 @@ export class GotyComponent implements OnInit {
   votarJuego(juego: Game) {
     this.gameService
       .votarJuego(juego.id)
-      .subscribe((resp: any) => {
+      .subscribe((resp: { ok: boolean; mensaje: string }) => {
         if (resp.ok) {
           Swal.fire('Gracias', resp.mensaje, 'success');
+        } else {
+          Swal.fire('Oops', resp.mensaje, 'error');
         }
       });
   }
